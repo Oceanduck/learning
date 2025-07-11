@@ -184,48 +184,410 @@
     </div>
 
     <script>
-        const questions = [
-            {
-                question: "Sara has 24 stickers. She gives 8 stickers to her brother and 6 stickers to her friend. How many stickers does Sara have left?",
-                answer: 10
-            },
-            {
-                question: "A baker makes 36 cupcakes in the morning and 28 cupcakes in the afternoon. If he sells 45 cupcakes, how many cupcakes are left?",
-                answer: 19
-            },
-            {
-                question: "There are 5 rows of chairs in a classroom. Each row has 7 chairs. How many chairs are there in total?",
-                answer: 35
-            },
-            {
-                question: "Mom bought 3 packets of pencils. Each packet contains 12 pencils. How many pencils did she buy altogether?",
-                answer: 36
-            },
-            {
-                question: "A library has 84 books. If the books are arranged equally on 4 shelves, how many books will be on each shelf?",
-                answer: 21
-            },
-            {
-                question: "Tom collects 56 marbles. He wants to put them equally into 8 boxes. How many marbles will go in each box?",
-                answer: 7
-            },
-            {
-                question: "In a garden, there are 15 red roses, 23 yellow roses, and 18 pink roses. How many roses are there in the garden altogether?",
-                answer: 56
-            },
-            {
-                question: "A toy shop has 72 toys. On Monday, they sold 28 toys. On Tuesday, they sold 19 toys. How many toys are left in the shop?",
-                answer: 25
-            },
-            {
-                question: "Each student needs 4 notebooks for school. If there are 9 students in the class, how many notebooks are needed in total?",
-                answer: 36
-            },
-            {
-                question: "A fruit vendor has 96 apples. He sells them in bags of 6 apples each. How many bags can he make?",
-                answer: 16
-            }
-        ];
+        const allQuestions = [
+            // Addition Problems (100 questions)
+            { question: "Sara has 24 stickers. She gives 8 stickers to her brother and 6 stickers to her friend. How many stickers does Sara have left?", answer: 10 },
+            { question: "A baker makes 36 cupcakes in the morning and 28 cupcakes in the afternoon. If he sells 45 cupcakes, how many cupcakes are left?", answer: 19 },
+            { question: "In a garden, there are 15 red roses, 23 yellow roses, and 18 pink roses. How many roses are there in the garden altogether?", answer: 56 },
+            { question: "Maya collected 45 seashells on Monday and 37 seashells on Tuesday. How many seashells did she collect in total?", answer: 82 },
+            { question: "A school has 126 students in grade 1, 134 students in grade 2, and 128 students in grade 3. How many students are there altogether?", answer: 388 },
+            { question: "Dad bought 34 apples, 28 oranges, and 42 bananas. How many fruits did he buy in total?", answer: 104 },
+            { question: "There are 67 cars in the parking lot. 23 more cars arrive. How many cars are there now?", answer: 90 },
+            { question: "A bookstore sold 145 books on Friday and 178 books on Saturday. How many books did they sell in two days?", answer: 323 },
+            { question: "Emma has 89 stickers. Her friend gives her 47 more stickers. How many stickers does Emma have now?", answer: 136 },
+            { question: "A farmer has 234 chickens and 167 ducks. How many birds does the farmer have in total?", answer: 401 },
+            { question: "In a zoo, there are 56 monkeys, 34 lions, and 28 tigers. How many animals are there altogether?", answer: 118 },
+            { question: "Jack scored 78 points in his first game and 92 points in his second game. What is his total score?", answer: 170 },
+            { question: "A library has 345 fiction books and 267 non-fiction books. How many books are there in total?", answer: 612 },
+            { question: "Sophie bought 156 beads for her craft project. Her mom gave her 89 more beads. How many beads does she have now?", answer: 245 },
+            { question: "There are 187 boys and 193 girls in a school. How many students are there altogether?", answer: 380 },
+            { question: "A candy store has 234 lollipops and 178 chocolates. How many candies do they have in total?", answer: 412 },
+            { question: "Lisa read 67 pages yesterday and 84 pages today. How many pages did she read altogether?", answer: 151 },
+            { question: "A factory produced 456 toys in January and 378 toys in February. How many toys were produced in two months?", answer: 834 },
+            { question: "There are 123 red balloons and 87 blue balloons at a party. How many balloons are there in total?", answer: 210 },
+            { question: "A baker sold 234 donuts in the morning and 167 donuts in the afternoon. How many donuts were sold altogether?", answer: 401 },
+            { question: "Mike has 145 baseball cards. His brother gives him 89 more cards. How many cards does Mike have now?", answer: 234 },
+            { question: "In a forest, there are 267 oak trees and 145 pine trees. How many trees are there altogether?", answer: 412 },
+            { question: "A store sold 189 shirts and 156 pants. How many clothes items were sold in total?", answer: 345 },
+            { question: "Anna collected 78 stamps last year and 94 stamps this year. How many stamps does she have altogether?", answer: 172 },
+            { question: "There are 234 fiction books and 189 science books in a library. How many books are there in total?", answer: 423 },
+            { question: "A parking lot has 156 cars and 89 motorcycles. How many vehicles are parked there?", answer: 245 },
+            { question: "Tom ate 23 grapes in the morning and 37 grapes in the evening. How many grapes did he eat altogether?", answer: 60 },
+            { question: "A school collected 345 cans for recycling in March and 267 cans in April. How many cans were collected in total?", answer: 612 },
+            { question: "There are 78 apples and 56 oranges in a basket. How many fruits are there altogether?", answer: 134 },
+            { question: "A toy store has 189 dolls and 123 action figures. How many toys do they have in total?", answer: 312 },
+            { question: "Sarah has 67 colored pencils. Her teacher gives her 45 more. How many colored pencils does she have now?", answer: 112 },
+            { question: "In a garden, there are 234 tulips and 178 daisies. How many flowers are there altogether?", answer: 412 },
+            { question: "A restaurant served 156 customers for lunch and 89 customers for dinner. How many customers were served in total?", answer: 245 },
+            { question: "There are 123 red marbles and 87 blue marbles in a jar. How many marbles are there altogether?", answer: 210 },
+            { question: "A farmer picked 234 apples on Monday and 167 apples on Tuesday. How many apples were picked in total?", answer: 401 },
+            { question: "Lucy has 78 stickers. Her friend gives her 94 more stickers. How many stickers does Lucy have now?", answer: 172 },
+            { question: "There are 189 fiction books and 156 poetry books on a shelf. How many books are there in total?", answer: 345 },
+            { question: "A zoo has 234 mammals and 178 birds. How many animals are there altogether?", answer: 412 },
+            { question: "Ben scored 67 points in the first round and 85 points in the second round. What is his total score?", answer: 152 },
+            { question: "A store sold 145 notebooks and 89 pens. How many items were sold in total?", answer: 234 },
+            { question: "There are 234 roses and 189 carnations in a flower shop. How many flowers are there altogether?", answer: 423 },
+            { question: "A library has 156 children's books and 87 adult books. How many books are there in total?", answer: 243 },
+            { question: "Maria collected 78 coins last month and 96 coins this month. How many coins does she have altogether?", answer: 174 },
+            { question: "There are 234 students in the morning shift and 178 students in the evening shift. How many students are there in total?", answer: 412 },
+            { question: "A bakery made 145 cupcakes and 89 cookies. How many baked goods were made altogether?", answer: 234 },
+            { question: "There are 67 action movies and 45 comedy movies in a collection. How many movies are there in total?", answer: 112 },
+            { question: "A farm has 234 cows and 167 sheep. How many animals are there altogether?", answer: 401 },
+            { question: "Kevin has 78 toy cars. His uncle gives him 94 more cars. How many toy cars does Kevin have now?", answer: 172 },
+            { question: "There are 189 math books and 156 science books in a classroom. How many books are there in total?", answer: 345 },
+            { question: "A concert hall sold 234 tickets on Friday and 178 tickets on Saturday. How many tickets were sold altogether?", answer: 412 },
+            { question: "Amy has 145 beads. She buys 89 more beads. How many beads does she have now?", answer: 234 },
+            { question: "There are 67 red cars and 85 blue cars in a showroom. How many cars are there in total?", answer: 152 },
+            { question: "A school has 234 computers and 189 tablets. How many devices are there altogether?", answer: 423 },
+            { question: "There are 156 oak trees and 87 maple trees in a park. How many trees are there in total?", answer: 243 },
+            { question: "David collected 78 baseball cards and 96 football cards. How many cards does he have altogether?", answer: 174 },
+            { question: "A store has 234 winter coats and 178 summer shirts. How many clothes items are there in total?", answer: 412 },
+            { question: "There are 145 mystery books and 89 adventure books on a shelf. How many books are there altogether?", answer: 234 },
+            { question: "A farmer has 67 horses and 45 ponies. How many animals are there in total?", answer: 112 },
+            { question: "There are 234 first-grade students and 167 second-grade students. How many students are there altogether?", answer: 401 },
+            { question: "Rita has 78 crayons. Her mom buys her 94 more crayons. How many crayons does Rita have now?", answer: 172 },
+            { question: "A library has 189 history books and 156 geography books. How many books are there in total?", answer: 345 },
+            { question: "There are 234 red roses and 178 white roses in a garden. How many roses are there altogether?", answer: 412 },
+            { question: "A toy store sold 145 puzzles and 89 board games. How many items were sold in total?", answer: 234 },
+            { question: "There are 67 comedy shows and 85 drama shows on TV tonight. How many shows are there altogether?", answer: 152 },
+            { question: "A school cafeteria served 234 lunches and 189 snacks. How many food items were served in total?", answer: 423 },
+            { question: "There are 156 fiction novels and 87 science fiction novels in a store. How many novels are there altogether?", answer: 243 },
+            { question: "Mark collected 78 stamps from Europe and 96 stamps from Asia. How many stamps does he have in total?", answer: 174 },
+            { question: "A parking garage has 234 small cars and 178 large cars. How many cars are there altogether?", answer: 412 },
+            { question: "There are 145 red apples and 89 green apples in an orchard. How many apples are there in total?", answer: 234 },
+            { question: "A pet store has 67 cats and 45 dogs. How many pets are there altogether?", answer: 112 },
+            { question: "There are 234 math problems and 167 science problems in a workbook. How many problems are there in total?", answer: 401 },
+            { question: "Sandy has 78 hair clips. Her sister gives her 94 more clips. How many hair clips does Sandy have now?", answer: 172 },
+            { question: "A bookstore has 189 cookbooks and 156 art books. How many books are there in total?", answer: 345 },
+            { question: "There are 234 yellow flowers and 178 purple flowers in a field. How many flowers are there altogether?", answer: 412 },
+            { question: "A game store sold 145 video games and 89 board games. How many games were sold in total?", answer: 234 },
+            { question: "There are 67 racing cars and 85 sports cars at a car show. How many cars are there altogether?", answer: 152 },
+            { question: "A restaurant has 234 round tables and 189 square tables. How many tables are there in total?", answer: 423 },
+            { question: "There are 156 adventure movies and 87 horror movies in a collection. How many movies are there altogether?", answer: 243 },
+            { question: "Alex collected 78 coins from the 1990s and 96 coins from the 2000s. How many coins does he have in total?", answer: 174 },
+            { question: "A farm has 234 apple trees and 178 orange trees. How many fruit trees are there altogether?", answer: 412 },
+            { question: "There are 145 summer dresses and 89 winter coats in a closet. How many clothes are there in total?", answer: 234 },
+            { question: "A zoo has 67 reptiles and 45 amphibians. How many cold-blooded animals are there altogether?", answer: 112 },
+            { question: "There are 234 morning newspapers and 167 evening newspapers delivered. How many newspapers were delivered in total?", answer: 401 },
+            { question: "Jenny has 78 friendship bracelets. She makes 94 more bracelets. How many bracelets does she have now?", answer: 172 },
+            { question: "A music store has 189 classical CDs and 156 jazz CDs. How many CDs are there in total?", answer: 345 },
+            { question: "There are 234 oak chairs and 178 pine chairs in a warehouse. How many chairs are there altogether?", answer: 412 },
+            { question: "A candy shop sold 145 chocolate bars and 89 gummy bears. How many candies were sold in total?", answer: 234 },
+            { question: "There are 67 fiction magazines and 85 science magazines on a rack. How many magazines are there altogether?", answer: 152 },
+            { question: "A school has 234 desktop computers and 189 laptop computers. How many computers are there in total?", answer: 423 },
+            { question: "There are 156 romance novels and 87 mystery novels in a library. How many novels are there altogether?", answer: 243 },
+            { question: "Chris collected 78 rocks from the beach and 96 rocks from the mountains. How many rocks does he have in total?", answer: 174 },
+            { question: "A garden center has 234 indoor plants and 178 outdoor plants. How many plants are there altogether?", answer: 412 },
+            { question: "There are 145 winter boots and 89 summer sandals in a shoe store. How many shoes are there in total?", answer: 234 },
+            { question: "A farm has 67 dairy cows and 45 beef cattle. How many cattle are there altogether?", answer: 112 },
+            { question: "There are 234 morning flights and 167 evening flights scheduled. How many flights are there in total?", answer: 401 },
+            { question: "Lisa has 78 colored markers. She buys 94 more markers. How many markers does she have now?", answer: 172 },
+            { question: "A video store has 189 action movies and 156 romantic movies. How many movies are there in total?", answer: 345 },
+            { question: "There are 234 wooden toys and 178 plastic toys in a toy chest. How many toys are there altogether?", answer: 412 },
+            { question: "A bakery sold 145 muffins and 89 croissants. How many baked goods were sold in total?", answer: 234 },
+            { question: "There are 67 mystery books and 85 fantasy books on a bookshelf. How many books are there altogether?", answer: 152 },
+            { question: "A warehouse has 234 large boxes and 189 small boxes. How many boxes are there in total?", answer: 423 },
+            { question: "There are 156 comedy DVDs and 87 drama DVDs in a collection. How many DVDs are there altogether?", answer: 243 },
+            { question: "Mike collected 78 bottle caps last week and 96 bottle caps this week. How many bottle caps does he have in total?", answer: 174 },
+            { question: "A flower shop has 234 roses and 178 tulips. How many flowers are there altogether?", answer: 412 },
+            { question: "There are 145 hardcover books and 89 paperback books on a table. How many books are there in total?", answer: 234 },
+
+            // Subtraction Problems (100 questions)
+            { question: "A toy shop has 72 toys. On Monday, they sold 28 toys. On Tuesday, they sold 19 toys. How many toys are left in the shop?", answer: 25 },
+            { question: "There were 156 students in the school assembly. 89 students left early. How many students remained?", answer: 67 },
+            { question: "A farmer had 234 apples. He sold 167 apples at the market. How many apples does he have left?", answer: 67 },
+            { question: "Maya had 145 stickers. She gave 78 stickers to her friends. How many stickers does she have now?", answer: 67 },
+            { question: "A library had 345 books. They lent out 189 books. How many books are still in the library?", answer: 156 },
+            { question: "There were 278 birds on a tree. 134 birds flew away. How many birds are still on the tree?", answer: 144 },
+            { question: "A store had 456 items. They sold 298 items during the sale. How many items are left?", answer: 158 },
+            { question: "Jack had 189 marbles. He lost 67 marbles. How many marbles does he have now?", answer: 122 },
+            { question: "A parking lot had 234 cars. 156 cars left during the day. How many cars are still there?", answer: 78 },
+            { question: "Emma had 567 beads. She used 289 beads for her project. How many beads does she have left?", answer: 278 },
+            { question: "A school had 345 pencils. Students used 178 pencils. How many pencils are left?", answer: 167 },
+            { question: "There were 456 flowers in the garden. 234 flowers were picked. How many flowers remain?", answer: 222 },
+            { question: "A bakery had 289 cookies. They sold 156 cookies. How many cookies are left?", answer: 133 },
+            { question: "Tom had 234 stamps. He gave 89 stamps to his cousin. How many stamps does he have now?", answer: 145 },
+            { question: "A zoo had 456 visitors. 278 visitors left after the show. How many visitors are still there?", answer: 178 },
+            { question: "Lisa had 345 photos. She deleted 167 photos. How many photos does she have left?", answer: 178 },
+            { question: "A factory produced 567 toys. 289 toys were shipped out. How many toys remain in the factory?", answer: 278 },
+            { question: "There were 234 books on the shelf. 89 books were borrowed. How many books are still on the shelf?", answer: 145 },
+            { question: "A farm had 456 chickens. 178 chickens were sold. How many chickens are left on the farm?", answer: 278 },
+            { question: "Sarah had 289 coins. She spent 134 coins. How many coins does she have now?", answer: 155 },
+            { question: "A concert hall had 567 seats. 345 seats were occupied. How many seats are empty?", answer: 222 },
+            { question: "There were 234 cars in the showroom. 89 cars were sold. How many cars remain?", answer: 145 },
+            { question: "A restaurant served 456 meals. 278 meals were for lunch. How many meals were for dinner?", answer: 178 },
+            { question: "Ben had 345 trading cards. He traded away 167 cards. How many cards does he have left?", answer: 178 },
+            { question: "A store had 567 shirts. 289 shirts were sold during the weekend. How many shirts are left?", answer: 278 },
+            { question: "There were 234 students in the playground. 89 students went back to class. How many students are still playing?", answer: 145 },
+            { question: "A library had 456 magazines. 178 magazines were checked out. How many magazines remain?", answer: 278 },
+            { question: "Amy had 289 stickers. She used 134 stickers to decorate her notebook. How many stickers does she have left?", answer: 155 },
+            { question: "A parking garage had 567 spaces. 345 spaces were occupied. How many spaces are free?", answer: 222 },
+            { question: "There were 234 balloons at the party. 89 balloons popped. How many balloons are still intact?", answer: 145 },
+            { question: "A toy store had 456 games. 278 games were sold during the holiday. How many games are left?", answer: 178 },
+            { question: "Kevin had 345 comic books. He sold 167 comic books. How many comic books does he have now?", answer: 178 },
+            { question: "A farm had 567 apples. 289 apples were harvested. How many apples are still on the trees?", answer: 278 },
+            { question: "There were 234 people at the movie theater. 89 people left during intermission. How many people stayed?", answer: 145 },
+            { question: "A school had 456 computers. 178 computers were moved to the new lab. How many computers remain?", answer: 278 },
+            { question: "Rita had 289 hair accessories. She gave away 134 accessories. How many does she have left?", answer: 155 },
+            { question: "A bookstore had 567 novels. 345 novels were sold. How many novels are still available?", answer: 222 },
+            { question: "There were 234 cookies in the jar. 89 cookies were eaten. How many cookies are left?", answer: 145 },
+            { question: "A museum had 456 artifacts on display. 278 artifacts were moved to storage. How many are still on display?", answer: 178 },
+            { question: "David had 345 bottle caps. He lost 167 bottle caps. How many bottle caps does he have now?", answer: 178 },
+            { question: "A garden had 567 roses. 289 roses were cut for bouquets. How many roses are still growing?", answer: 278 },
+            { question: "There were 234 fish in the aquarium. 89 fish were moved to another tank. How many fish remain?", answer: 145 },
+            { question: "A candy store had 456 chocolates. 178 chocolates were sold. How many chocolates are left?", answer: 278 },
+            { question: "Maria had 289 beads. She used 134 beads to make jewelry. How many beads does she have left?", answer: 155 },
+            { question: "A theater had 567 tickets available. 345 tickets were sold. How many tickets remain unsold?", answer: 222 },
+            { question: "There were 234 marbles in the bag. 89 marbles fell out. How many marbles are still in the bag?", answer: 145 },
+            { question: "A pet store had 456 fish. 278 fish were sold. How many fish are left in the store?", answer: 178 },
+            { question: "Alex had 345 stickers. He gave 167 stickers to his classmates. How many stickers does he have now?", answer: 178 },
+            { question: "A warehouse had 567 boxes. 289 boxes were shipped out. How many boxes remain in the warehouse?", answer: 278 },
+            { question: "There were 234 birds in the aviary. 89 birds were released. How many birds are still in the aviary?", answer: 145 },
+            { question: "A florist had 456 flowers. 178 flowers were used for arrangements. How many flowers are left?", answer: 278 },
+            { question: "Jenny had 289 crayons. She broke 134 crayons. How many crayons are still usable?", answer: 155 },
+            { question: "A stadium had 567 fans. 345 fans left before the game ended. How many fans stayed until the end?", answer: 222 },
+            { question: "There were 234 toys in the toy box. 89 toys were taken out to play. How many toys remain in the box?", answer: 145 },
+            { question: "A grocery store had 456 apples. 278 apples were sold. How many apples are left?", answer: 178 },
+            { question: "Chris had 345 coins in his collection. He spent 167 coins. How many coins does he have left?", answer: 178 },
+            { question: "A farm had 567 eggs. 289 eggs were sold to the market. How many eggs are left on the farm?", answer: 278 },
+            { question: "There were 234 books in the classroom library. 89 books were checked out. How many books remain?", answer: 145 },
+            { question: "A bakery had 456 muffins. 178 muffins were sold in the morning. How many muffins are left?", answer: 278 },
+            { question: "Sandra had 289 photos on her phone. She deleted 134 photos. How many photos does she have now?", answer: 155 },
+            { question: "A concert venue had 567 seats. 345 seats were filled. How many seats are empty?", answer: 222 },
+            { question: "There were 234 pencils in the supply room. 89 pencils were distributed to students. How many pencils remain?", answer: 145 },
+            { question: "A toy factory produced 456 dolls. 278 dolls were packaged and shipped. How many dolls are still in the factory?", answer: 178 },
+            { question: "Mike had 345 baseball cards. He traded 167 cards with his friends. How many cards does he have left?", answer: 178 },
+            { question: "A nursery had 567 plants. 289 plants were sold. How many plants are still available?", answer: 278 },
+            { question: "There were 234 students registered for the field trip. 89 students canceled. How many students are still going?", answer: 145 },
+            { question: "A video game store had 456 games. 178 games were sold during the sale. How many games remain?", answer: 278 },
+            { question: "Laura had 289 markers. 134 markers dried out and were thrown away. How many markers does she have left?", answer: 155 },
+            { question: "A movie theater had 567 tickets for sale. 345 tickets were purchased. How many tickets are still available?", answer: 222 },
+            { question: "There were 234 cupcakes at the bake sale. 89 cupcakes were sold. How many cupcakes are left?", answer: 145 },
+            { question: "A electronics store had 456 phones. 278 phones were sold during Black Friday. How many phones remain?", answer: 178 },
+            { question: "Ryan had 345 Pokemon cards. He gave 167 cards to his younger brother. How many cards does he have now?", answer: 178 },
+            { question: "A greenhouse had 567 flowers. 289 flowers were transplanted to the garden. How many flowers are still in the greenhouse?", answer: 278 },
+            { question: "There were 234 cookies in the cafeteria. 89 cookies were eaten during lunch. How many cookies are left?", answer: 145 },
+            { question: "A furniture store had 456 chairs. 178 chairs were delivered to customers. How many chairs remain in the store?", answer: 278 },
+            { question: "Olivia had 289 hair ties. She lost 134 hair ties. How many hair ties does she have left?", answer: 155 },
+            { question: "A sports arena had 567 fans attending. 345 fans left during halftime. How many fans stayed for the second half?", answer: 222 },
+            { question: "There were 234 crayons in the art room. 89 crayons were used up. How many crayons are still available?", answer: 145 },
+            { question: "A bookstore ordered 456 books. 278 books were sold in the first week. How many books are left to sell?", answer: 178 },
+            { question: "Tyler had 345 action figures. He sold 167 action figures online. How many action figures does he have left?", answer: 178 },
+            { question: "A orchard had 567 oranges. 289 oranges were picked for juice. How many oranges are still on the trees?", answer: 278 },
+            { question: "There were 234 balloons decorating the party hall. 89 balloons deflated. How many balloons are still inflated?", answer: 145 },
+            { question: "A clothing store had 456 shirts. 178 shirts were sold during the summer sale. How many shirts are left?", answer: 278 },
+            { question: "Sophia had 289 friendship bracelets. She gave away 134 bracelets. How many bracelets does she have now?", answer: 155 },
+            { question: "A library had 567 DVDs. 345 DVDs were checked out over the weekend. How many DVDs are still available?", answer: 222 },
+            { question: "There were 234 stickers on the reward chart. 89 stickers were given to students. How many stickers remain?", answer: 145 },
+            { question: "A game store had 456 board games. 278 games were sold during the holiday season. How many games are left?", answer: 178 },
+            { question: "Emma had 345 colored pencils. 167 pencils were broken or lost. How many colored pencils does she have left?", answer: 178 },
+            { question: "A farm had 567 tomatoes. 289 tomatoes were harvested for the farmer's market. How many tomatoes are still growing?", answer: 278 },
+            { question: "There were 234 students in the auditorium. 89 students left for their next class. How many students are still in the auditorium?", answer: 145 },
+            { question: "A candy factory produced 456 lollipops. 178 lollipops were packaged for shipping. How many lollipops are still in the factory?", answer: 278 },
+            { question: "Nathan had 345 trading cards. He sold 167 cards at the card show. How many trading cards does he have left?", answer: 178 },
+            { question: "A garden center had 567 seed packets. 289 packets were sold in spring. How many seed packets are still available?", answer: 278 },
+            { question: "There were 234 magazines in the waiting room. 89 magazines were taken by patients. How many magazines remain?", answer: 145 },
+            { question: "A toy manufacturer made 456 stuffed animals. 178 were shipped to stores. How many stuffed animals are left in the warehouse?", answer: 278 },
+            { question: "Grace had 289 stickers in her collection. She used 134 stickers in her scrapbook. How many stickers does she have left?", answer: 155 },
+            { question: "A parking lot had 567 parking spaces. 345 spaces were occupied. How many spaces are still empty?", answer: 222 },
+            { question: "There were 234 cookies baked for the school fundraiser. 89 cookies were sold. How many cookies are left to sell?", answer: 145 },
+            { question: "A pet store had 456 fish in their tanks. 278 fish were sold to customers. How many fish are still in the store?", answer: 178 },
+
+            // Multiplication Problems (150 questions)
+            { question: "There are 5 rows of chairs in a classroom. Each row has 7 chairs. How many chairs are there in total?", answer: 35 },
+            { question: "Mom bought 3 packets of pencils. Each packet contains 12 pencils. How many pencils did she buy altogether?", answer: 36 },
+            { question: "Each student needs 4 notebooks for school. If there are 9 students in the class, how many notebooks are needed in total?", answer: 36 },
+            { question: "A baker makes 6 trays of cookies. Each tray has 8 cookies. How many cookies did he make in total?", answer: 48 },
+            { question: "There are 7 boxes of crayons. Each box contains 12 crayons. How many crayons are there altogether?", answer: 84 },
+            { question: "A farmer plants 8 rows of tomatoes. Each row has 15 tomato plants. How many tomato plants are there in total?", answer: 120 },
+            { question: "Each pack of stickers has 9 stickers. If Sarah buys 6 packs, how many stickers does she get?", answer: 54 },
+            { question: "There are 4 shelves in the bookstore. Each shelf has 25 books. How many books are there in total?", answer: 100 },
+            { question: "A school orders 7 boxes of markers. Each box contains 16 markers. How many markers did they order?", answer: 112 },
+            { question: "Each pizza is cut into 8 slices. If there are 5 pizzas, how many slices are there altogether?", answer: 40 },
+            { question: "There are 9 teams in the league. Each team has 11 players. How many players are there in total?", answer: 99 },
+            { question: "A toy store has 6 display cases. Each case holds 14 toys. How many toys can be displayed?", answer: 84 },
+            { question: "Each carton of eggs contains 12 eggs. If mom buys 5 cartons, how many eggs does she have?", answer: 60 },
+            { question: "There are 8 tables in the restaurant. Each table seats 6 people. How many people can the restaurant seat?", answer: 48 },
+            { question: "A garden has 7 flower beds. Each bed has 13 flowers. How many flowers are in the garden?", answer: 91 },
+            { question: "Each book has 15 chapters. If there are 4 books, how many chapters are there in total?", answer: 60 },
+            { question: "There are 6 parking rows. Each row has 18 parking spaces. How many parking spaces are there?", answer: 108 },
+            { question: "A factory produces 9 cars per hour. How many cars are produced in 7 hours?", answer: 63 },
+            { question: "Each classroom has 8 windows. If there are 12 classrooms, how many windows are there in total?", answer: 96 },
+            { question: "There are 5 bags of marbles. Each bag contains 17 marbles. How many marbles are there altogether?", answer: 85 },
+            { question: "Each student reads 6 books per month. If there are 14 students, how many books are read in total?", answer: 84 },
+            { question: "A bakery makes 11 cakes per day. How many cakes do they make in 8 days?", answer: 88 },
+            { question: "There are 7 rows of seats. Each row has 19 seats. How many seats are there in total?", answer: 133 },
+            { question: "Each pack of gum has 5 pieces. If Tom buys 16 packs, how many pieces of gum does he have?", answer: 80 },
+            { question: "A farmer has 9 chicken coops. Each coop houses 13 chickens. How many chickens does the farmer have?", answer: 117 },
+            { question: "Each box contains 7 donuts. If the bakery has 15 boxes, how many donuts are there?", answer: 105 },
+            { question: "There are 6 floors in the building. Each floor has 22 offices. How many offices are in the building?", answer: 132 },
+            { question: "A store sells 8 types of candy. Each type comes in packs of 14. How many candies are there in total?", answer: 112 },
+            { question: "Each train car carries 12 passengers. If the train has 9 cars, how many passengers can it carry?", answer: 108 },
+            { question: "There are 4 grocery aisles. Each aisle has 28 products. How many products are there in total?", answer: 112 },
+            { question: "Each magazine rack holds 9 magazines. If there are 13 racks, how many magazines can be displayed?", answer: 117 },
+            { question: "A school has 7 grades. Each grade has 24 students. How many students are in the school?", answer: 168 },
+            { question: "Each basket holds 6 apples. If there are 19 baskets, how many apples are there?", answer: 114 },
+            { question: "There are 8 teams competing. Each team has 15 members. How many competitors are there in total?", answer: 120 },
+            { question: "Each library shelf holds 11 books. If there are 16 shelves, how many books can the library hold?", answer: 176 },
+            { question: "A parking lot has 5 sections. Each section has 26 parking spots. How many parking spots are there?", answer: 130 },
+            { question: "Each flower bouquet has 9 flowers. If the florist makes 17 bouquets, how many flowers are used?", answer: 153 },
+            { question: "There are 6 buses for the field trip. Each bus holds 35 students. How many students can go on the trip?", answer: 210 },
+            { question: "Each pack of trading cards has 8 cards. If Alex buys 21 packs, how many cards does he get?", answer: 168 },
+            { question: "A theater has 12 rows of seats. Each row has 18 seats. How many seats does the theater have?", answer: 216 },
+            { question: "Each garden bed has 7 plants. If there are 23 garden beds, how many plants are there?", answer: 161 },
+            { question: "There are 9 classrooms on each floor. The school has 4 floors. How many classrooms are there?", answer: 36 },
+            { question: "Each zoo enclosure houses 5 animals. If there are 27 enclosures, how many animals are in the zoo?", answer: 135 },
+            { question: "A bakery makes 13 loaves of bread per hour. How many loaves do they make in 11 hours?", answer: 143 },
+            { question: "Each toy chest contains 14 toys. If there are 12 toy chests, how many toys are there?", answer: 168 },
+            { question: "There are 8 swimmers in each lane. If there are 9 lanes, how many swimmers are there?", answer: 72 },
+            { question: "Each art kit has 16 crayons. If the teacher buys 7 kits, how many crayons are there?", answer: 112 },
+            { question: "A farm has 15 rows of corn. Each row has 24 corn plants. How many corn plants are there?", answer: 360 },
+            { question: "Each music class has 6 instruments. If there are 18 classes, how many instruments are needed?", answer: 108 },
+            { question: "There are 11 tables at the party. Each table seats 8 people. How many people can be seated?", answer: 88 },
+            { question: "Each container holds 9 tennis balls. If there are 14 containers, how many tennis balls are there?", answer: 126 },
+            { question: "A store has 7 racks of clothes. Each rack holds 29 items. How many clothing items are there?", answer: 203 },
+            { question: "Each aquarium tank has 12 fish. If there are 13 tanks, how many fish are there in total?", answer: 156 },
+            { question: "There are 6 rows of lockers. Each row has 31 lockers. How many lockers are there?", answer: 186 },
+            { question: "Each sports team needs 10 uniforms. If there are 16 teams, how many uniforms are needed?", answer: 160 },
+            { question: "A library orders 8 sets of encyclopedias. Each set has 22 volumes. How many books are ordered?", answer: 176 },
+            { question: "Each birdhouse can hold 4 birds. If there are 25 birdhouses, how many birds can be housed?", answer: 100 },
+            { question: "There are 9 groups of students. Each group has 17 students. How many students are there in total?", answer: 153 },
+            { question: "Each pen pack contains 5 pens. If the office orders 32 packs, how many pens do they get?", answer: 160 },
+            { question: "A greenhouse has 14 rows of plants. Each row has 19 plants. How many plants are in the greenhouse?", answer: 266 },
+            { question: "Each puzzle has 15 pieces. If there are 12 puzzles, how many pieces are there altogether?", answer: 180 },
+            { question: "There are 7 boxes of chocolates. Each box contains 26 chocolates. How many chocolates are there?", answer: 182 },
+            { question: "Each computer lab has 18 computers. If there are 5 labs, how many computers are there?", answer: 90 },
+            { question: "A candy store has 11 jars of candy. Each jar holds 23 pieces. How many pieces of candy are there?", answer: 253 },
+            { question: "Each delivery truck carries 8 packages. If there are 19 trucks, how many packages are being delivered?", answer: 152 },
+            { question: "There are 13 shelves in the pantry. Each shelf holds 16 cans. How many cans are in the pantry?", answer: 208 },
+            { question: "Each soccer field has 2 goals. If there are 28 fields, how many goals are there in total?", answer: 56 },
+            { question: "A factory produces 17 widgets per machine. If there are 9 machines, how many widgets are produced?", answer: 153 },
+            { question: "Each gift bag contains 6 treats. If there are 24 gift bags, how many treats are there?", answer: 144 },
+            { question: "There are 8 floors in the apartment building. Each floor has 14 apartments. How many apartments are there?", answer: 112 },
+            { question: "Each beehive produces 12 jars of honey. If there are 15 beehives, how many jars are produced?", answer: 180 },
+            { question: "A school has 10 playgrounds. Each playground has 21 pieces of equipment. How many pieces are there?", answer: 210 },
+            { question: "Each crayon box has 24 crayons. If the art teacher buys 6 boxes, how many crayons are there?", answer: 144 },
+            { question: "There are 12 rows in the movie theater. Each row has 25 seats. How many seats are in the theater?", answer: 300 },
+            { question: "Each garden section has 7 rose bushes. If there are 22 sections, how many rose bushes are there?", answer: 154 },
+            { question: "A pet store has 9 cages. Each cage houses 13 hamsters. How many hamsters are in the store?", answer: 117 },
+            { question: "Each bookshelf has 8 shelves. Each shelf holds 17 books. How many books can one bookshelf hold?", answer: 136 },
+            { question: "There are 14 teams in the tournament. Each team has 11 players. How many players are competing?", answer: 154 },
+            { question: "Each lunch tray has 5 compartments. If there are 29 trays, how many compartments are there?", answer: 145 },
+            { question: "A museum has 6 wings. Each wing has 27 exhibits. How many exhibits does the museum have?", answer: 162 },
+            { question: "Each paint set contains 16 colors. If the school orders 8 sets, how many paint colors are there?", answer: 128 },
+            { question: "There are 15 buses for the school district. Each bus seats 32 students. How many students can ride?", answer: 480 },
+            { question: "Each instrument case holds 3 instruments. If there are 31 cases, how many instruments are there?", answer: 93 },
+            { question: "A parking garage has 9 levels. Each level has 28 parking spaces. How many spaces are in the garage?", answer: 252 },
+            { question: "Each cookie tin contains 18 cookies. If there are 7 tins, how many cookies are there?", answer: 126 },
+            { question: "There are 11 display windows. Each window shows 14 items. How many items are on display?", answer: 154 },
+            { question: "Each seed packet contains 25 seeds. If the gardener buys 8 packets, how many seeds are there?", answer: 200 },
+            { question: "A zoo has 13 animal habitats. Each habitat houses 9 animals. How many animals are in the zoo?", answer: 117 },
+            { question: "Each music stand holds 4 sheet music pieces. If there are 26 stands, how many pieces are there?", answer: 104 },
+            { question: "There are 16 classrooms in the school. Each classroom has 19 desks. How many desks are there?", answer: 304 },
+            { question: "Each photo album holds 12 photos. If Sarah has 11 albums, how many photos can she store?", answer: 132 },
+            { question: "A farm has 7 barns. Each barn stores 33 bales of hay. How many bales are stored in total?", answer: 231 },
+            { question: "Each treasure chest contains 15 gold coins. If there are 14 chests, how many coins are there?", answer: 210 },
+            { question: "There are 8 fishing boats. Each boat can hold 17 fish. How many fish can be caught in total?", answer: 136 },
+            { question: "Each pencil case holds 9 pencils. If there are 23 pencil cases, how many pencils are there?", answer: 207 },
+            { question: "A library has 12 sections. Each section has 26 books. How many books are in the library?", answer: 312 },
+            { question: "Each flower pot contains 6 flowers. If there are 28 pots, how many flowers are there?", answer: 168 },
+            { question: "There are 10 teams practicing. Each team has 13 members. How many athletes are practicing?", answer: 130 },
+            { question: "Each game box contains 20 game pieces. If there are 9 boxes, how many pieces are there?", answer: 180 },
+            { question: "A candy factory makes 14 batches per day. Each batch has 22 candies. How many candies are made daily?", answer: 308 },
+            { question: "Each storage bin holds 11 toys. If there are 18 bins, how many toys can be stored?", answer: 198 },
+            { question: "There are 15 rows of vegetables. Each row has 16 plants. How many vegetable plants are there?", answer: 240 },
+            { question: "Each marble bag contains 7 marbles. If Tom has 24 bags, how many marbles does he have?", answer: 168 },
+            { question: "A store has 6 shelves of video games. Each shelf holds 29 games. How many games are there?", answer: 174 },
+            { question: "Each bird nest has 4 eggs. If there are 27 nests, how many eggs are there in total?", answer: 108 },
+            { question: "There are 17 tables in the cafeteria. Each table seats 8 students. How many students can eat?", answer: 136 },
+            { question: "Each stamp collection book has 21 pages. If each page holds 5 stamps, how many stamps fit in one book?", answer: 105 },
+            { question: "A warehouse has 13 aisles. Each aisle has 24 shelves. How many shelves are in the warehouse?", answer: 312 },
+            { question: "Each backpack has 8 pockets. If there are 19 backpacks, how many pockets are there in total?", answer: 152 },
+            { question: "There are 9 departments in the store. Each department has 31 employees. How many employees work there?", answer: 279 },
+            { question: "Each pizza box stack has 12 boxes. If there are 16 stacks, how many pizza boxes are there?", answer: 192 },
+            { question: "A school orders 11 sets of textbooks. Each set contains 23 books. How many textbooks are ordered?", answer: 253 },
+            { question: "Each jewelry box has 14 compartments. If there are 8 jewelry boxes, how many compartments are there?", answer: 112 },
+            { question: "There are 18 rows of apple trees. Each row has 15 trees. How many apple trees are in the orchard?", answer: 270 },
+            { question: "Each delivery van makes 6 stops. If there are 25 vans, how many stops are made in total?", answer: 150 },
+            { question: "A hotel has 14 floors. Each floor has 22 rooms. How many rooms does the hotel have?", answer: 308 },
+            { question: "Each art supply kit has 19 items. If the school buys 7 kits, how many art supplies are there?", answer: 133 },
+            { question: "There are 16 swimming pools. Each pool lane fits 9 swimmers. How many swimmers can swim at once?", answer: 144 },
+            { question: "Each treasure map shows 13 locations. If there are 12 maps, how many locations are marked?", answer: 156 },
+            { question: "A farm has 8 chicken coops. Each coop houses 26 chickens. How many chickens are on the farm?", answer: 208 },
+            { question: "Each notebook has 17 pages. If a student has 15 notebooks, how many pages are there in total?", answer: 255 },
+            { question: "There are 20 boxes of crayons. Each box contains 24 crayons. How many crayons are there altogether?", answer: 480 },
+            { question: "Each lunch box has 5 items. If there are 34 lunch boxes, how many food items are there?", answer: 170 },
+            { question: "A toy factory produces 12 dolls per hour. How many dolls are produced in 18 hours?", answer: 216 },
+            { question: "Each coin collection has 16 coins. If there are 11 collections, how many coins are there in total?", answer: 176 },
+            { question: "There are 7 garden rows. Each row has 35 flowers. How many flowers are planted?", answer: 245 },
+            { question: "Each study group has 9 students. If there are 21 study groups, how many students are studying?", answer: 189 },
+            { question: "A bookstore has 15 bookcases. Each bookcase holds 28 books. How many books can the store display?", answer: 420 },
+            { question: "Each gift wrap roll has 10 meters. If there are 23 rolls, how many meters of gift wrap are there?", answer: 230 },
+            { question: "There are 13 soccer teams. Each team has 18 players. How many soccer players are there in total?", answer: 234 },
+            { question: "Each paint palette has 8 colors. If the art class has 27 palettes, how many paint colors are available?", answer: 216 },
+            { question: "A parking lot has 19 rows. Each row has 14 parking spaces. How many cars can park there?", answer: 266 },
+            { question: "Each story book has 22 chapters. If there are 6 story books, how many chapters are there?", answer: 132 },
+            { question: "There are 14 fish tanks. Each tank contains 25 fish. How many fish are there in the aquarium?", answer: 350 },
+            { question: "Each music folder holds 7 songs. If there are 29 folders, how many songs are stored?", answer: 203 },
+            { question: "A factory has 11 production lines. Each line makes 32 products per day. How many products are made daily?", answer: 352 },
+            { question: "Each card deck has 52 cards. If there are 4 decks, how many cards are there in total?", answer: 208 },
+            { question: "There are 16 baseball teams. Each team has 25 players. How many baseball players are there?", answer: 400 },
+            { question: "Each seed tray has 12 sections. If there are 18 trays, how many planting sections are there?", answer: 216 },
+            { question: "A museum has 9 exhibits. Each exhibit displays 33 artifacts. How many artifacts are displayed?", answer: 297 },
+            { question: "Each lunch table seats 6 children. If there are 31 tables, how many children can eat lunch?", answer: 186 },
+            { question: "There are 12 delivery trucks. Each truck carries 27 packages. How many packages are being delivered?", answer: 324 },
+            { question: "Each binder has 15 sections. If there are 14 binders, how many sections are there in total?", answer: 210 },
+            { question: "A school has 8 computer labs. Each lab has 24 computers. How many computers does the school have?", answer: 192 },
+            { question: "Each cookie jar holds 13 cookies. If there are 17 jars, how many cookies are there?", answer: 221 },
+            { question: "There are 21 basketball teams. Each team has 12 players. How many basketball players are there?", answer: 252 },
+            { question: "Each tool box contains 19 tools. If the workshop has 8 tool boxes, how many tools are there?", answer: 152 },
+            { question: "A library has 13 reading areas. Each area has 16 chairs. How many people can read at the same time?", answer: 208 },
+
+            // Division Problems (150 questions)
+            { question: "A library has 84 books. If the books are arranged equally on 4 shelves, how many books will be on each shelf?", answer: 21 },
+            { question: "Tom collects 56 marbles. He wants to put them equally into 8 boxes. How many marbles will go in each box?", answer: 7 },
+            { question: "A fruit vendor has 96 apples. He sells them in bags of 6 apples each. How many bags can he make?", answer: 16 },
+            { question: "There are 72 students going on a field trip. If each bus holds 9 students, how many buses are needed?", answer: 8 },
+            { question: "A baker has 144 cookies. She wants to pack them in boxes of 12 cookies each. How many boxes will she need?", answer: 12 },
+            { question: "There are 168 stickers to be shared equally among 14 children. How many stickers will each child get?", answer: 12 },
+            { question: "A farmer has 135 eggs. If he puts 15 eggs in each carton, how many cartons will he fill?", answer: 9 },
+            { question: "There are 156 pencils to be distributed equally in 13 classrooms. How many pencils will each classroom get?", answer: 12 },
+            { question: "A toy store has 126 action figures. They want to display them in groups of 18. How many groups can they make?", answer: 7 },
+            { question: "There are 204 books to be placed on shelves. If each shelf holds 17 books, how many shelves are needed?", answer: 12 },
+            { question: "A school has 189 students. If they form teams of 21 students each, how many teams can be formed?", answer: 9 },
+            { question: "There are 112 flowers to be arranged in vases. If each vase holds 16 flowers, how many vases are needed?", answer: 7 },
+            { question: "A candy factory produces 264 chocolates. If they pack 24 chocolates per box, how many boxes can they fill?", answer: 11 },
+            { question: "There are 195 marbles to be divided equally among 15 children. How many marbles will each child receive?", answer: 13 },
+            { question: "A library orders 224 new books. If they put 32 books on each new shelf, how many shelves do they need?", answer: 7 },
+            { question: "There are 176 stamps in a collection. If they are arranged in albums with 22 stamps each, how many albums are needed?", answer: 8 },
+            { question: "A bakery makes 252 muffins. If they pack 28 muffins per tray, how many trays do they need?", answer: 9 },
+            { question: "There are 217 students in the school play. If they stand in rows of 31 students each, how many rows will there be?", answer: 7 },
+            { question: "A farmer harvests 288 tomatoes. If he puts 36 tomatoes in each crate, how many crates will he fill?", answer: 8 },
+            { question: "There are 165 crayons to be shared equally among 11 art classes. How many crayons will each class get?", answer: 15 },
+            { question: "A store has 234 greeting cards. If they display 26 cards per rack, how many racks do they need?", answer: 9 },
+            { question: "There are 196 oranges to be packed in boxes. If each box holds 28 oranges, how many boxes are needed?", answer: 7 },
+            { question: "A school cafeteria serves 312 students. If each table seats 24 students, how many tables are needed?", answer: 13 },
+            { question: "There are 275 photos to be placed in albums. If each album holds 25 photos, how many albums are needed?", answer: 11 },
+            { question: "A toy manufacturer produces 336 dolls. If they pack 48 dolls per shipment, how many shipments can they make?", answer: 7 },
+            { question: "There are 285 pencils to be bundled. If each bundle contains 19 pencils, how many bundles can be made?", answer: 15 },
+            { question: "A gardener plants 216 seeds. If he plants 18 seeds per row, how many rows will he have?", answer: 12 },
+            { question: "There are 238 stickers in a collection. If they are organized in sheets of 34 stickers each, how many sheets are there?", answer: 7 },
+            { question: "A factory produces 351 widgets. If they pack 27 widgets per box, how many boxes can they fill?", answer: 13 },
+            { question: "There are 304 books to be sorted. If each cart holds 38 books, how many carts are needed?", answer: 8 },
+            { question: "A school has 266 chairs. If they arrange 14 chairs per classroom, how many classrooms can be furnished?", answer: 19 },
+            { question: "There are 357 marbles to be divided. If each bag holds 21 marbles, how many bags can be filled?", answer: 17 },
+            { question: "A bakery has 384 cupcakes. If they pack 32 cupcakes per box, how many boxes do they need?", answer: 12 },
+            { question: "There are 294 flowers in the garden. If they are planted in rows of 42 flowers each, how many rows are there?", answer: 7 },
+            { question: "A store receives 405 items. If they stock 45 items per shelf, how many shelves do they need?", answer: 9 },
+            { question: "There are 322 trading cards to be sorted. If each binder holds 46 cards, how many binders are needed?", answer: 7 },
+            { question: "A farm has 378 apples. If they are packed in baskets of 54 apples each, how many baskets can be filled?", answer: 7 },
+            { question: "There are 315 students going on a trip. If each bus holds 35 students, how many buses are needed?", answer: 9 },
+            { question: "A library has 368 magazines. If they are displayed in racks of 23 magazines each, how many racks are needed?", answer: 16 },
+            { question: "There are 416 crayons to be distributed. If each box contains 52 crayons, how many boxes can be filled?", answer: 8 },
+            { question: "A toy store has 399 puzzles. If they display 57 puzzles per shelf, how many shelves do they need?", answer: 7 },
+            { question: "There are 372 pencils in the supply room. If they are bundled in groups of 31, how many bundles can be made?", answer: 12 },
+            { question: "A cafeteria has 432 lunch trays. If they stack 48 trays per stack, how many stacks will there be?", answer: 9 },
+            { question: "There are 385 stickers to be shared. If each child gets 35 stickers, how many children
 
         let currentQuestion = 0;
         let score = 0;
@@ -260,20 +622,21 @@
                 return;
             }
             
-            answered = true;
-            
             if (userAnswer === correctAnswer) {
                 score++;
+                answered = true;
                 resultDiv.innerHTML = '🎉 Correct! Well done! 🎉';
                 resultDiv.className = 'result correct';
+                resultDiv.style.display = 'block';
+                document.getElementById('checkBtn').style.display = 'none';
+                document.getElementById('nextBtn').style.display = 'inline-block';
             } else {
-                resultDiv.innerHTML = `❌ Not quite right. The correct answer is ${correctAnswer}. Keep trying! 💪`;
+                resultDiv.innerHTML = `❌ Not quite right. Try again! Think carefully! 💪`;
                 resultDiv.className = 'result incorrect';
+                resultDiv.style.display = 'block';
+                // Don't set answered = true, so they can try again
+                // Don't show next button, keep check button visible
             }
-            
-            resultDiv.style.display = 'block';
-            document.getElementById('checkBtn').style.display = 'none';
-            document.getElementById('nextBtn').style.display = 'inline-block';
         }
 
         function nextQuestion() {
@@ -294,7 +657,13 @@
             document.getElementById('result').style.display = 'none';
             document.querySelector('.progress').style.display = 'none';
             
-            document.getElementById('score').textContent = score;
+            const joke = getRandomJoke();
+            const scoreText = score === 10 ? "Perfect score! You're a math superstar! 🌟" : 
+                             score >= 8 ? "Great job! You're really good at math! 👏" :
+                             score >= 6 ? "Good work! Keep practicing! 💪" :
+                             "Nice try! Practice makes perfect! 😊";
+            
+            document.getElementById('score').innerHTML = `${score}/10<br><br>${scoreText}<br><br>Here's a joke for you:<br><br>${joke}`;
             document.getElementById('finalScore').style.display = 'block';
             
             // Update progress bar to 100%
@@ -305,6 +674,7 @@
             currentQuestion = 0;
             score = 0;
             answered = false;
+            questions = getRandomQuestions(); // Get new random questions
             
             document.querySelector('.question').style.display = 'block';
             document.querySelector('.input-section').style.display = 'block';
@@ -325,7 +695,15 @@
             }
         });
 
+        // Clear result message when user starts typing a new answer
+        document.getElementById('answerInput').addEventListener('input', function() {
+            if (!answered) {
+                document.getElementById('result').style.display = 'none';
+            }
+        });
+
         // Load first question when page loads
+        questions = getRandomQuestions();
         loadQuestion();
     </script>
 </body>
