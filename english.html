@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Quiz</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .quiz-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #4a5568;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .emoji {
+            font-size: 3em;
+            margin: 10px;
+        }
+        
+        .question {
+            font-size: 1.3em;
+            color: #2d3748;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 15px;
+            border-left: 5px solid #9f7aea;
+            text-align: left;
+        }
+        
+        .story-text {
+            background: #fff5f5;
+            border: 2px solid #f687b3;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        .answer-options {
+            margin: 25px 0;
+            text-align: left;
+        }
+        
+        .option {
+            font-size: 1.2em;
+            padding: 15px;
+            margin: 10px 0;
+            border: 3px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        .option:hover {
+            border-color: #9f7aea;
+            background: #f7fafc;
+        }
+        
+        .option.selected {
+            border-color: #9f7aea;
+            background: #e9d8fd;
+        }
+        
+        .option.correct {
+            border-color: #48bb78;
+            background: #c6f6d5;
+        }
+        
+        .option.incorrect {
+            border-color: #e53e3e;
+            background: #fed7d7;
+        }
+        
+        button {
+            font-size: 1.2em;
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        
+        .check-btn {
+            background: #48bb78;
+            color: white;
+        }
+        
+        .check-btn:hover {
+            background: #38a169;
+            transform: translateY(-2px);
+        }
+        
+        .check-btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .next-btn {
+            background: #9f7aea;
+            color: white;
+        }
+        
+        .next-btn:hover {
+            background: #805ad5;
+            transform: translateY(-2px);
+        }
+        
+        .result {
+            font-size: 1.4em;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        
+        .correct {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 2px solid #48bb78;
+        }
+        
+        .incorrect {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 2px solid #e53e3e;
+        }
+        
+        .failed {
+            background: #fbb6ce;
+            color: #97266d;
+            border: 2px solid #d53f8c;
+        }
+        
+        .progress {
+            margin: 20px 0;
+            font-size: 1.1em;
+            color: #4a5568;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #9f7aea, #805ad5);
+            transition: width 0.5s ease;
+        }
+        
+        .final-score {
+            font-size: 1.8em;
+            color: #2d3748;
+            margin: 20px 0;
+        }
+        
+        .restart-btn {
+            background: #4299e1;
+            color: white;
+            font-size: 1.3em;
+            padding: 15px 25px;
+        }
+        
+        .restart-btn:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+        }
+
+        .joke-section {
+            background: #fff5f5;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #f687b3;
+        }
+
+        .answers-section {
+            background: #f0fff4;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #68d391;
+            text-align: left;
+        }
+
+        .answer-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #9f7aea;
+        }
+
+        .answer-item.correct-answer {
+            border-left-color: #48bb78;
+        }
+
+        .answer-item.failed-answer {
+            border-left-color: #e53e3e;
+        }
+
+        .welcome-screen {
+            text-align: center;
+        }
+        
+        .start-btn {
+            background: #9f7aea;
+            color: white;
+            font-size: 1.5em;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        
+        .start-btn:hover {
+            background: #805ad5;
+            transform: translateY(-2px);
+        }
+
+        .game-content {
+            display: none;
+        }
+
+        .attempts-info {
+            font-size: 1em;
+            color: #666;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>📚 English Quiz 📚</h1>
+        <span class="emoji">🌟</span>
+        
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="emoji">📖</div>
+            <h2 style="color: #4a5568; font-size: 2em; margin: 20px 0;">Do you want to play??</h2>
+            <div class="emoji">🤔</div>
+            <button class="start-btn" onclick="startGame()">Yes, Let's Read! 🚀</button>
+        </div>
+        
+        <div class="game-content" id="gameContent">
+            <div class="progress">
+                <div>Question <span id="questionNumber">1</span> of 10</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            
+            <div class="question" id="questionText"></div>
+            
+            <div class="attempts-info" id="attemptsInfo">Attempt 1 of 2</div>
+            
+            <div class="answer-options" id="answerOptions"></div>
+            
+            <button class="check-btn" id="checkBtn" onclick="checkAnswer()" disabled>Check Answer! ✓</button>
+            <button class="next-btn" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Question →</button>
+            
+            <div class="result" id="result" style="display: none;"></div>
+        </div>
+        
+        <div id="finalScore" style="display: none;">
+            <div class="final-score">Quiz Complete! 🎉</div>
+            <div class="final-score">Your Score: <span id="score"></span>/10</div>
+            <div class="answers-section" id="answersSection">
+                <h3>📝 All Quiz Answers:</h3>
+                <div id="allAnswers"></div>
+            </div>
+            <div class="joke-section" id="jokeSection"></div>
+            <div class="emoji">🏆</div>
+            <button class="restart-btn" onclick="restartQuiz()">Play Again!</button>
+        </div>
+    </div>
+
+    <script>
+        // English questions for Year 2 students (ICAS style)
+        const englishQuestions = [
+            {
+                question: "Which word rhymes with 'cat'?",
+                options: ["dog", "hat", "bird", "fish"],
+                correctAnswer: 1,
+                explanation: "'Hat' rhymes with 'cat' because they both end with the same sound '-at'."
+            },
+            {
+                question: "What is the opposite of 'big'?",
+                options: ["large", "small", "huge", "tall"],
+                correctAnswer: 1,
+                explanation: "'Small' is the opposite of 'big'. They are antonyms - words with opposite meanings."
+            },
+            {
+                question: "Which sentence is written correctly?",
+                options: ["the dog is brown", "The dog is brown.", "the Dog is brown", "The dog is Brown"],
+                correctAnswer: 1,
+                explanation: "Sentences start with a capital letter and end with a full stop (period)."
+            },
+            {
+                question: "What type of word is 'run'?",
+                options: ["a describing word", "an action word", "a naming word", "a connecting word"],
+                correctAnswer: 1,
+                explanation: "'Run' is an action word (verb) because it tells us what someone or something does."
+            },
+            {
+                question: "<div class='story-text'>Emma went to the park. She played on the swings and slides. Then she had lunch with her mum.</div>Where did Emma go?",
+                options: ["to school", "to the park", "to the shop", "to the beach"],
+                correctAnswer: 1,
+                explanation: "The story clearly states 'Emma went to the park' in the first sentence."
+            },
+            {
+                question: "Which word has the same meaning as 'happy'?",
+                options: ["sad", "angry", "joyful", "tired"],
+                correctAnswer: 2,
+                explanation: "'Joyful' means the same as 'happy'. These are synonyms - words with similar meanings."
+            },
+            {
+                question: "How many syllables are in the word 'elephant'?",
+                options: ["2", "3", "4", "5"],
+                correctAnswer: 1,
+                explanation: "'Elephant' has 3 syllables: el-e-phant. Count by clapping for each part of the word."
+            },
+            {
+                question: "<div class='story-text'>The little mouse was very hungry. It found a big piece of cheese. The mouse was so excited that it danced around the cheese.</div>How did the mouse feel when it found the cheese?",
+                options: ["sad", "angry", "excited", "sleepy"],
+                correctAnswer: 2,
+                explanation: "The story says 'The mouse was so excited that it danced around the cheese.'"
+            },
+            {
+                question: "Which word is a noun (naming word)?",
+                options: ["jump", "quickly", "beautiful", "flower"],
+                correctAnswer: 3,
+                explanation: "'Flower' is a noun because it names a thing. Nouns are words that name people, places, or things."
+            },
+            {
+                question: "What should you put at the end of a question?",
+                options: ["a full stop (.)", "a question mark (?)", "an exclamation mark (!)", "a comma (,)"],
+                correctAnswer: 1,
+                explanation: "Questions always end with a question mark (?) to show that someone is asking something."
+            },
+            {
+                question: "Which word starts with the same sound as 'sun'?",
+                options: ["moon", "star", "soap", "tree"],
+                correctAnswer: 2,
+                explanation: "'Soap' starts with the same 's' sound as 'sun'. They both begin with the letter 's'."
+            },
+            {
+                question: "<div class='story-text'>Jack has a pet dog named Buddy. Buddy loves to play fetch in the backyard. Every morning, Buddy wakes up Jack by licking his face.</div>What is the name of Jack's dog?",
+                options: ["Max", "Buddy", "Rex", "Charlie"],
+                correctAnswer: 1,
+                explanation: "The story tells us that 'Jack has a pet dog named Buddy.'"
+            },
+            {
+                question: "Which sentence shows something that happened in the past?",
+                options: ["I will eat lunch.", "I am eating lunch.", "I ate lunch.", "I eat lunch."],
+                correctAnswer: 2,
+                explanation: "'I ate lunch' uses the past tense word 'ate' to show something that already happened."
+            },
+            {
+                question: "What is the plural (more than one) of 'child'?",
+                options: ["childs", "children", "child's", "childes"],
+                correctAnswer: 1,
+                explanation: "'Children' is the correct plural form of 'child'. Some words change completely in plural form."
+            },
+            {
+                question: "Which word describes how someone might walk?",
+                options: ["slowly", "red", "three", "under"],
+                correctAnswer: 0,
+                explanation: "'Slowly' is an adverb that describes how an action is done. It tells us the way someone walks."
+            },
+            {
+                question: "<div class='story-text'>The birthday party was lots of fun. There were balloons, cake, and games. All the children laughed and played together. Everyone went home with a smile.</div>What was at the party?",
+                options: ["balloons, cake, and games", "only balloons", "only cake", "only games"],
+                correctAnswer: 0,
+                explanation: "The story lists three things at the party: 'balloons, cake, and games.'"
+            },
+            {
+                question: "Which word is an adjective (describing word)?",
+                options: ["run", "quickly", "soft", "yesterday"],
+                correctAnswer: 2,
+                explanation: "'Soft' is an adjective because it describes what something feels like or looks like."
+            },
+            {
+                question: "What comes at the beginning of every sentence?",
+                options: ["a small letter", "a capital letter", "a number", "a question mark"],
+                correctAnswer: 1,
+                explanation: "Every sentence must start with a capital letter. This is an important grammar rule."
+            },
+            {
+                question: "Which word has a long 'a' sound?",
+                options: ["cat", "cake", "can", "cap"],
+                correctAnswer: 1,
+                explanation: "'Cake' has a long 'a' sound that says its name. The 'e' at the end makes the 'a' say its name."
+            },
+            {
+                question: "<div class='story-text'>Sarah loves reading books. Her favourite book is about a brave princess who saves a dragon. She reads this book every night before bed.</div>When does Sarah read her favourite book?",
+                options: ["in the morning", "at lunch time", "before bed", "after school"],
+                correctAnswer: 2,
+                explanation: "The story says 'She reads this book every night before bed.'"
+            }
+        ];
+
+        const jokes = [
+            "Why did the book go to the doctor? Because it had a bad case of the covers! 📚😄",
+            "What do you call a sleeping bull? A bulldozer! 🐂💤",
+            "Why don't eggs tell jokes? They'd crack each other up! 🥚😂",
+            "What's a teacher's favourite nation? Expla-nation! 👩‍🏫📝",
+            "Why did the pencil go to school? To get sharper! ✏️🎓",
+            "What do you call a bear with no teeth? A gummy bear! 🐻🍬",
+            "Why don't books ever get cold? Because they have book jackets! 📖🧥",
+            "What do you call a dinosaur that loves to sleep? A dino-snore! 🦕😴",
+            "Why did the banana go to the doctor? It wasn't peeling well! 🍌🏥",
+            "What do you call a fish wearing a crown? A king fish! 🐟👑",
+            "Why don't elephants use computers? They're afraid of the mouse! 🐘🖱️",
+            "What do you call a pig that does karate? A pork chop! 🐷🥋",
+            "Why did the cookie go to the doctor? Because it felt crumbly! 🍪🏥",
+            "What's orange and sounds like a parrot? A carrot! 🥕🦜",
+            "Why don't skeletons fight each other? They don't have the guts! 💀😄"
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let currentAttempt = 1;
+        let questions = [];
+        let questionResults = [];
+        let selectedAnswer = -1;
+
+        function generateRandomQuestions() {
+            // Shuffle the English questions and pick 10
+            const shuffled = [...englishQuestions].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, 10);
+        }
+
+        function getRandomJoke() {
+            return jokes[Math.floor(Math.random() * jokes.length)];
+        }
+
+        function startGame() {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('gameContent').style.display = 'block';
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            document.getElementById('questionNumber').textContent = currentQuestion + 1;
+            
+            // Set question text (may include story text in HTML)
+            const questionDiv = document.getElementById('questionText');
+            questionDiv.innerHTML = questions[currentQuestion].question;
+            
+            // Create answer options
+            const optionsDiv = document.getElementById('answerOptions');
+            optionsDiv.innerHTML = '';
+            selectedAnswer = -1;
+            
+            questions[currentQuestion].options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+                optionDiv.onclick = () => selectAnswer(index);
+                optionsDiv.appendChild(optionDiv);
+            });
+            
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('checkBtn').style.display = 'inline-block';
+            document.getElementById('checkBtn').disabled = true;
+            document.getElementById('nextBtn').style.display = 'none';
+            currentAttempt = 1;
+            updateAttemptsInfo();
+            updateProgress();
+        }
+
+        function selectAnswer(index) {
+            // Remove previous selection
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            document.querySelectorAll('.option')[index].classList.add('selected');
+            selectedAnswer = index;
+            
+            // Enable check button
+            document.getElementById('checkBtn').disabled = false;
+        }
+
+        function updateAttemptsInfo() {
+            document.getElementById('attemptsInfo').textContent = `Attempt ${currentAttempt} of 2`;
+        }
+
+        function updateProgress() {
+            const progress = (currentQuestion / 10) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function checkAnswer() {
+            if (selectedAnswer === -1) return;
+            
+            const correctAnswer = questions[currentQuestion].correctAnswer;
+            const resultDiv = document.getElementById('result');
+            const options = document.querySelectorAll('.option');
+            
+            // Show correct and incorrect answers
+            options.forEach((option, index) => {
+                if (index === correctAnswer) {
+                    option.classList.add('correct');
+                } else if (index === selectedAnswer && index !== correctAnswer) {
+                    option.classList.add('incorrect');
+                }
+                option.onclick = null; // Disable clicking
+            });
+            
+            if (selectedAnswer === correctAnswer) {
+                score++;
+                questionResults[currentQuestion] = {
+                    question: questions[currentQuestion].question.replace(/<[^>]*>/g, ''), // Remove HTML tags for display
+                    correctAnswer: questions[currentQuestion].options[correctAnswer],
+                    userAnswer: questions[currentQuestion].options[selectedAnswer],
+                    status: 'correct',
+                    attempts: currentAttempt,
+                    explanation: questions[currentQuestion].explanation
+                };
+                resultDiv.innerHTML = '🎉 Correct! Well done! 🎉';
+                resultDiv.className = 'result correct';
+                resultDiv.style.display = 'block';
+                document.getElementById('checkBtn').style.display = 'none';
+                document.getElementById('nextBtn').style.display = 'inline-block';
+                document.getElementById('attemptsInfo').style.display = 'none';
+            } else {
+                if (currentAttempt < 2) {
+                    currentAttempt++;
+                    updateAttemptsInfo();
+                    resultDiv.innerHTML = `❌ Not quite right. You have one more try! 💪`;
+                    resultDiv.className = 'result incorrect';
+                    resultDiv.style.display = 'block';
+                    
+                    // Reset for second attempt
+                    setTimeout(() => {
+                        options.forEach(option => {
+                            option.classList.remove('selected', 'correct', 'incorrect');
+                            option.onclick = (e) => {
+                                const index = Array.from(options).indexOf(option);
+                                selectAnswer(index);
+                            };
+                        });
+                        selectedAnswer = -1;
+                        document.getElementById('checkBtn').disabled = true;
+                        document.getElementById('result').style.display = 'none';
+                    }, 2000);
+                } else {
+                    // Failed after 2 attempts
+                    questionResults[currentQuestion] = {
+                        question: questions[currentQuestion].question.replace(/<[^>]*>/g, ''), // Remove HTML tags for display
+                        correctAnswer: questions[currentQuestion].options[correctAnswer],
+                        userAnswer: questions[currentQuestion].options[selectedAnswer],
+                        status: 'failed',
+                        attempts: currentAttempt,
+                        explanation: questions[currentQuestion].explanation
+                    };
+                    resultDiv.innerHTML = `❌ The correct answer was ${String.fromCharCode(65 + correctAnswer)}. ${questions[currentQuestion].options[correctAnswer]}. ${questions[currentQuestion].explanation}`;
+                    resultDiv.className = 'result failed';
+                    resultDiv.style.display = 'block';
+                    document.getElementById('checkBtn').style.display = 'none';
+                    document.getElementById('nextBtn').style.display = 'inline-block';
+                    document.getElementById('attemptsInfo').style.display = 'none';
+                }
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            
+            if (currentQuestion < 10) {
+                loadQuestion();
+            } else {
+                showFinalScore();
+            }
+        }
+
+        function showAllAnswers() {
+            const allAnswersDiv = document.getElementById('allAnswers');
+            let answersHTML = '';
+            
+            questionResults.forEach((result, index) => {
+                const questionNum = index + 1;
+                const statusClass = result.status === 'correct' ? 'correct-answer' : 'failed-answer';
+                const statusEmoji = result.status === 'correct' ? '✅' : '❌';
+                
+                answersHTML += `
+                    <div class="answer-item ${statusClass}">
+                        <strong>Question ${questionNum}:</strong> ${result.question}<br>
+                        <strong>Correct Answer:</strong> ${result.correctAnswer} ${statusEmoji}<br>
+                        <strong>Your Answer:</strong> ${result.userAnswer} (${result.attempts} attempt${result.attempts > 1 ? 's' : ''})<br>
+                        <strong>Why:</strong> ${result.explanation}
+                    </div>
+                `;
+            });
+            
+            allAnswersDiv.innerHTML = answersHTML;
+        }
+
+        function showFinalScore() {
+            document.getElementById('gameContent').style.display = 'none';
+            
+            const joke = getRandomJoke();
+            const scoreText = score === 10 ? "Perfect score! You're an English superstar! 🌟" : 
+                             score >= 8 ? "Great job! Your reading and writing skills are excellent! 👏" :
+                             score >= 6 ? "Good work! Keep reading and learning! 💪" :
+                             "Nice try! Reading is the key to learning! 😊";
+            
+            document.getElementById('score').textContent = score;
+            showAllAnswers();
+            document.getElementById('jokeSection').innerHTML = `
+                <h3>🎭 Here's a word joke for you! 🎭</h3>
+                <p style="font-size: 1.2em; color: #2d3748;">${joke}</p>
+                <p style="color: #4a5568; margin-top: 15px;">${scoreText}</p>
+            `;
+            document.getElementById('finalScore').style.display = 'block';
+            
+            document.getElementById('progressFill').style.width = '100%';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            currentAttempt = 1;
+            questions = generateRandomQuestions();
+            questionResults = [];
+            selectedAnswer = -1;
+            
+            document.getElementById('welcomeScreen').style.display = 'block';
+            document.getElementById('gameContent').style.display = 'none';
+            document.getElementById('finalScore').style.display = 'none';
+            
+            // Reset progress bar
+            document.getElementById('progressFill').style.width = '0%';
+        }
+
+        // Initialize the quiz - show welcome screen first
+        questions = generateRandomQuestions();
+        questionResults = new Array(10);
+    </script>
+</body>
+</html>

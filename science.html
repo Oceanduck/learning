@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Quiz</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .quiz-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #4a5568;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .emoji {
+            font-size: 3em;
+            margin: 10px;
+        }
+        
+        .question {
+            font-size: 1.3em;
+            color: #2d3748;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 15px;
+            border-left: 5px solid #48bb78;
+            text-align: left;
+        }
+        
+        .answer-options {
+            margin: 25px 0;
+            text-align: left;
+        }
+        
+        .option {
+            font-size: 1.2em;
+            padding: 15px;
+            margin: 10px 0;
+            border: 3px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        .option:hover {
+            border-color: #4299e1;
+            background: #f0f8ff;
+        }
+        
+        .option.selected {
+            border-color: #4299e1;
+            background: #e6f3ff;
+        }
+        
+        .option.correct {
+            border-color: #48bb78;
+            background: #c6f6d5;
+        }
+        
+        .option.incorrect {
+            border-color: #e53e3e;
+            background: #fed7d7;
+        }
+        
+        button {
+            font-size: 1.2em;
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        
+        .check-btn {
+            background: #48bb78;
+            color: white;
+        }
+        
+        .check-btn:hover {
+            background: #38a169;
+            transform: translateY(-2px);
+        }
+        
+        .check-btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .next-btn {
+            background: #4299e1;
+            color: white;
+        }
+        
+        .next-btn:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+        }
+        
+        .result {
+            font-size: 1.4em;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        
+        .correct {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 2px solid #48bb78;
+        }
+        
+        .incorrect {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 2px solid #e53e3e;
+        }
+        
+        .failed {
+            background: #fbb6ce;
+            color: #97266d;
+            border: 2px solid #d53f8c;
+        }
+        
+        .progress {
+            margin: 20px 0;
+            font-size: 1.1em;
+            color: #4a5568;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #48bb78, #38a169);
+            transition: width 0.5s ease;
+        }
+        
+        .final-score {
+            font-size: 1.8em;
+            color: #2d3748;
+            margin: 20px 0;
+        }
+        
+        .restart-btn {
+            background: #9f7aea;
+            color: white;
+            font-size: 1.3em;
+            padding: 15px 25px;
+        }
+        
+        .restart-btn:hover {
+            background: #805ad5;
+            transform: translateY(-2px);
+        }
+
+        .joke-section {
+            background: #fff5f5;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #f687b3;
+        }
+
+        .answers-section {
+            background: #f0fff4;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #68d391;
+            text-align: left;
+        }
+
+        .answer-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #4299e1;
+        }
+
+        .answer-item.correct-answer {
+            border-left-color: #48bb78;
+        }
+
+        .answer-item.failed-answer {
+            border-left-color: #e53e3e;
+        }
+
+        .welcome-screen {
+            text-align: center;
+        }
+        
+        .start-btn {
+            background: #48bb78;
+            color: white;
+            font-size: 1.5em;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        
+        .start-btn:hover {
+            background: #38a169;
+            transform: translateY(-2px);
+        }
+
+        .game-content {
+            display: none;
+        }
+
+        .attempts-info {
+            font-size: 1em;
+            color: #666;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>🔬 Science Quiz 🔬</h1>
+        <span class="emoji">🌟</span>
+        
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="emoji">🧪</div>
+            <h2 style="color: #4a5568; font-size: 2em; margin: 20px 0;">Do you want to play??</h2>
+            <div class="emoji">🤔</div>
+            <button class="start-btn" onclick="startGame()">Yes, Let's Explore! 🚀</button>
+        </div>
+        
+        <div class="game-content" id="gameContent">
+            <div class="progress">
+                <div>Question <span id="questionNumber">1</span> of 10</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            
+            <div class="question" id="questionText"></div>
+            
+            <div class="attempts-info" id="attemptsInfo">Attempt 1 of 2</div>
+            
+            <div class="answer-options" id="answerOptions"></div>
+            
+            <button class="check-btn" id="checkBtn" onclick="checkAnswer()" disabled>Check Answer! ✓</button>
+            <button class="next-btn" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Question →</button>
+            
+            <div class="result" id="result" style="display: none;"></div>
+        </div>
+        
+        <div id="finalScore" style="display: none;">
+            <div class="final-score">Quiz Complete! 🎉</div>
+            <div class="final-score">Your Score: <span id="score"></span>/10</div>
+            <div class="answers-section" id="answersSection">
+                <h3>📝 All Quiz Answers:</h3>
+                <div id="allAnswers"></div>
+            </div>
+            <div class="joke-section" id="jokeSection"></div>
+            <div class="emoji">🏆</div>
+            <button class="restart-btn" onclick="restartQuiz()">Play Again!</button>
+        </div>
+    </div>
+
+    <script>
+        // Science questions for Year 2 students (ICAS style)
+        const scienceQuestions = [
+            {
+                question: "Which animal lives in the ocean and breathes through gills?",
+                options: ["Dog", "Fish", "Bird", "Cat"],
+                correctAnswer: 1,
+                explanation: "Fish live in water and use gills to breathe underwater."
+            },
+            {
+                question: "What do plants need to grow?",
+                options: ["Only water", "Sunlight, water and air", "Only sunlight", "Only soil"],
+                correctAnswer: 1,
+                explanation: "Plants need sunlight, water, and air (carbon dioxide) to grow healthy and strong."
+            },
+            {
+                question: "Which part of your body helps you see?",
+                options: ["Ears", "Nose", "Eyes", "Mouth"],
+                correctAnswer: 2,
+                explanation: "Your eyes are the organs that help you see the world around you."
+            },
+            {
+                question: "What happens to water when it gets very cold?",
+                options: ["It becomes gas", "It turns into ice", "It becomes hot", "Nothing happens"],
+                correctAnswer: 1,
+                explanation: "When water gets very cold (freezes), it turns into ice, which is solid water."
+            },
+            {
+                question: "Which animal is a mammal?",
+                options: ["Snake", "Fish", "Kangaroo", "Bird"],
+                correctAnswer: 2,
+                explanation: "Kangaroos are mammals - they are warm-blooded, have fur, and feed milk to their babies."
+            },
+            {
+                question: "What do we call baby cats?",
+                options: ["Puppies", "Kittens", "Chicks", "Calves"],
+                correctAnswer: 1,
+                explanation: "Baby cats are called kittens, just like baby dogs are called puppies."
+            },
+            {
+                question: "Which season comes after winter in Australia?",
+                options: ["Summer", "Autumn", "Spring", "Winter again"],
+                correctAnswer: 2,
+                explanation: "In Australia, spring comes after winter, bringing warmer weather and new plant growth."
+            },
+            {
+                question: "What helps birds fly?",
+                options: ["Legs", "Wings", "Tail only", "Beak"],
+                correctAnswer: 1,
+                explanation: "Birds use their wings to fly through the air by flapping them up and down."
+            },
+            {
+                question: "Which food comes from cows?",
+                options: ["Eggs", "Honey", "Milk", "Wool"],
+                correctAnswer: 2,
+                explanation: "Cows produce milk, which we drink and use to make cheese, butter, and yogurt."
+            },
+            {
+                question: "What do we call the star that gives us light and warmth?",
+                options: ["Moon", "Sun", "Planet", "Cloud"],
+                correctAnswer: 1,
+                explanation: "The Sun is our closest star and provides the light and warmth that Earth needs."
+            },
+            {
+                question: "Which of these is NOT a living thing?",
+                options: ["Tree", "Rock", "Dog", "Flower"],
+                correctAnswer: 1,
+                explanation: "A rock is not alive - it doesn't grow, eat, breathe, or reproduce like living things do."
+            },
+            {
+                question: "What do bees make?",
+                options: ["Milk", "Eggs", "Honey", "Wool"],
+                correctAnswer: 2,
+                explanation: "Bees collect nectar from flowers and turn it into honey in their hives."
+            },
+            {
+                question: "Which part of a plant grows underground?",
+                options: ["Leaves", "Flowers", "Roots", "Fruits"],
+                correctAnswer: 2,
+                explanation: "Roots grow underground and help the plant get water and nutrients from the soil."
+            },
+            {
+                question: "What sound do frogs make?",
+                options: ["Moo", "Woof", "Ribbit", "Meow"],
+                correctAnswer: 2,
+                explanation: "Frogs make a 'ribbit' or croaking sound, especially near water and at night."
+            },
+            {
+                question: "Which animal has stripes?",
+                options: ["Elephant", "Zebra", "Giraffe", "Hippo"],
+                correctAnswer: 1,
+                explanation: "Zebras are famous for their black and white stripes that cover their whole body."
+            },
+            {
+                question: "What do we use to hear sounds?",
+                options: ["Eyes", "Nose", "Ears", "Mouth"],
+                correctAnswer: 2,
+                explanation: "We use our ears to hear all the different sounds around us."
+            },
+            {
+                question: "Which weather brings rain?",
+                options: ["Sunny", "Cloudy and stormy", "Snowy", "Windy only"],
+                correctAnswer: 1,
+                explanation: "Cloudy and stormy weather often brings rain when the clouds are full of water."
+            },
+            {
+                question: "What do caterpillars turn into?",
+                options: ["Birds", "Butterflies", "Frogs", "Fish"],
+                correctAnswer: 1,
+                explanation: "Caterpillars go through a transformation and become beautiful butterflies."
+            },
+            {
+                question: "Which Australian animal carries its baby in a pouch?",
+                options: ["Emu", "Koala", "Kangaroo", "Wombat"],
+                correctAnswer: 2,
+                explanation: "Kangaroos carry their babies (called joeys) in a special pouch on their belly."
+            },
+            {
+                question: "What do we call frozen rain?",
+                options: ["Snow", "Hail", "Sleet", "All of these"],
+                correctAnswer: 3,
+                explanation: "Frozen rain can be snow, hail, or sleet - they're all different types of frozen water."
+            }
+        ];
+
+        const jokes = [
+            "Why don't scientists trust atoms? Because they make up everything! 😄",
+            "What do you call a sleeping bull? A bulldozer! 🐂💤",
+            "Why did the frog call his insurance company? He had a jump in his car! 🐸🚗",
+            "What do you call a bear with no teeth? A gummy bear! 🐻🍬",
+            "Why don't eggs tell jokes? They'd crack each other up! 🥚😂",
+            "What's a tree's favorite drink? Root beer! 🌳🍺",
+            "Why don't skeletons fight each other? They don't have the guts! 💀😄",
+            "What do you call a dinosaur that crashes his car? Tyrannosaurus Wrecks! 🦕🚗",
+            "Why did the banana go to the doctor? It wasn't peeling well! 🍌🏥",
+            "What do you call a fish wearing a crown? A king fish! 🐟👑",
+            "Why did the cookie go to the doctor? Because it felt crumbly! 🍪🏥",
+            "What do you call a cow with no legs? Ground beef! 🐄😄",
+            "What do clouds wear under their raincoats? Thunderwear! ⛈️👙",
+            "Why don't elephants use computers? They're afraid of the mouse! 🐘🖱️",
+            "What do you call a pig that does karate? A pork chop! 🐷🥋"
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let currentAttempt = 1;
+        let questions = [];
+        let questionResults = [];
+        let selectedAnswer = -1;
+
+        function generateRandomQuestions() {
+            // Shuffle the science questions and pick 10
+            const shuffled = [...scienceQuestions].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, 10);
+        }
+
+        function getRandomJoke() {
+            return jokes[Math.floor(Math.random() * jokes.length)];
+        }
+
+        function startGame() {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('gameContent').style.display = 'block';
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            document.getElementById('questionNumber').textContent = currentQuestion + 1;
+            document.getElementById('questionText').textContent = questions[currentQuestion].question;
+            
+            // Create answer options
+            const optionsDiv = document.getElementById('answerOptions');
+            optionsDiv.innerHTML = '';
+            selectedAnswer = -1;
+            
+            questions[currentQuestion].options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+                optionDiv.onclick = () => selectAnswer(index);
+                optionsDiv.appendChild(optionDiv);
+            });
+            
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('checkBtn').style.display = 'inline-block';
+            document.getElementById('checkBtn').disabled = true;
+            document.getElementById('nextBtn').style.display = 'none';
+            currentAttempt = 1;
+            updateAttemptsInfo();
+            updateProgress();
+        }
+
+        function selectAnswer(index) {
+            // Remove previous selection
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            document.querySelectorAll('.option')[index].classList.add('selected');
+            selectedAnswer = index;
+            
+            // Enable check button
+            document.getElementById('checkBtn').disabled = false;
+        }
+
+        function updateAttemptsInfo() {
+            document.getElementById('attemptsInfo').textContent = `Attempt ${currentAttempt} of 2`;
+        }
+
+        function updateProgress() {
+            const progress = (currentQuestion / 10) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function checkAnswer() {
+            if (selectedAnswer === -1) return;
+            
+            const correctAnswer = questions[currentQuestion].correctAnswer;
+            const resultDiv = document.getElementById('result');
+            const options = document.querySelectorAll('.option');
+            
+            // Show correct and incorrect answers
+            options.forEach((option, index) => {
+                if (index === correctAnswer) {
+                    option.classList.add('correct');
+                } else if (index === selectedAnswer && index !== correctAnswer) {
+                    option.classList.add('incorrect');
+                }
+                option.onclick = null; // Disable clicking
+            });
+            
+            if (selectedAnswer === correctAnswer) {
+                score++;
+                questionResults[currentQuestion] = {
+                    question: questions[currentQuestion].question,
+                    correctAnswer: questions[currentQuestion].options[correctAnswer],
+                    userAnswer: questions[currentQuestion].options[selectedAnswer],
+                    status: 'correct',
+                    attempts: currentAttempt,
+                    explanation: questions[currentQuestion].explanation
+                };
+                resultDiv.innerHTML = '🎉 Correct! Well done! 🎉';
+                resultDiv.className = 'result correct';
+                resultDiv.style.display = 'block';
+                document.getElementById('checkBtn').style.display = 'none';
+                document.getElementById('nextBtn').style.display = 'inline-block';
+                document.getElementById('attemptsInfo').style.display = 'none';
+            } else {
+                if (currentAttempt < 2) {
+                    currentAttempt++;
+                    updateAttemptsInfo();
+                    resultDiv.innerHTML = `❌ Not quite right. You have one more try! 💪`;
+                    resultDiv.className = 'result incorrect';
+                    resultDiv.style.display = 'block';
+                    
+                    // Reset for second attempt
+                    setTimeout(() => {
+                        options.forEach(option => {
+                            option.classList.remove('selected', 'correct', 'incorrect');
+                            option.onclick = (e) => {
+                                const index = Array.from(options).indexOf(option);
+                                selectAnswer(index);
+                            };
+                        });
+                        selectedAnswer = -1;
+                        document.getElementById('checkBtn').disabled = true;
+                        document.getElementById('result').style.display = 'none';
+                    }, 2000);
+                } else {
+                    // Failed after 2 attempts
+                    questionResults[currentQuestion] = {
+                        question: questions[currentQuestion].question,
+                        correctAnswer: questions[currentQuestion].options[correctAnswer],
+                        userAnswer: questions[currentQuestion].options[selectedAnswer],
+                        status: 'failed',
+                        attempts: currentAttempt,
+                        explanation: questions[currentQuestion].explanation
+                    };
+                    resultDiv.innerHTML = `❌ The correct answer was ${String.fromCharCode(65 + correctAnswer)}. ${questions[currentQuestion].options[correctAnswer]}. ${questions[currentQuestion].explanation}`;
+                    resultDiv.className = 'result failed';
+                    resultDiv.style.display = 'block';
+                    document.getElementById('checkBtn').style.display = 'none';
+                    document.getElementById('nextBtn').style.display = 'inline-block';
+                    document.getElementById('attemptsInfo').style.display = 'none';
+                }
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            
+            if (currentQuestion < 10) {
+                loadQuestion();
+            } else {
+                showFinalScore();
+            }
+        }
+
+        function showAllAnswers() {
+            const allAnswersDiv = document.getElementById('allAnswers');
+            let answersHTML = '';
+            
+            questionResults.forEach((result, index) => {
+                const questionNum = index + 1;
+                const statusClass = result.status === 'correct' ? 'correct-answer' : 'failed-answer';
+                const statusEmoji = result.status === 'correct' ? '✅' : '❌';
+                
+                answersHTML += `
+                    <div class="answer-item ${statusClass}">
+                        <strong>Question ${questionNum}:</strong> ${result.question}<br>
+                        <strong>Correct Answer:</strong> ${result.correctAnswer} ${statusEmoji}<br>
+                        <strong>Your Answer:</strong> ${result.userAnswer} (${result.attempts} attempt${result.attempts > 1 ? 's' : ''})<br>
+                        <strong>Why:</strong> ${result.explanation}
+                    </div>
+                `;
+            });
+            
+            allAnswersDiv.innerHTML = answersHTML;
+        }
+
+        function showFinalScore() {
+            document.getElementById('gameContent').style.display = 'none';
+            
+            const joke = getRandomJoke();
+            const scoreText = score === 10 ? "Perfect score! You're a science superstar! 🌟" : 
+                             score >= 8 ? "Great job! You know a lot about science! 👏" :
+                             score >= 6 ? "Good work! Keep exploring! 💪" :
+                             "Nice try! Science is fun to learn! 😊";
+            
+            document.getElementById('score').textContent = score;
+            showAllAnswers();
+            document.getElementById('jokeSection').innerHTML = `
+                <h3>🎭 Here's a science joke for you! 🎭</h3>
+                <p style="font-size: 1.2em; color: #2d3748;">${joke}</p>
+                <p style="color: #4a5568; margin-top: 15px;">${scoreText}</p>
+            `;
+            document.getElementById('finalScore').style.display = 'block';
+            
+            document.getElementById('progressFill').style.width = '100%';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            currentAttempt = 1;
+            questions = generateRandomQuestions();
+            questionResults = [];
+            selectedAnswer = -1;
+            
+            document.getElementById('welcomeScreen').style.display = 'block';
+            document.getElementById('gameContent').style.display = 'none';
+            document.getElementById('finalScore').style.display = 'none';
+            
+            // Reset progress bar
+            document.getElementById('progressFill').style.width = '0%';
+        }
+
+        // Initialize the quiz - show welcome screen first
+        questions = generateRandomQuestions();
+        questionResults = new Array(10);
+    </script>
+</body>
+</html>

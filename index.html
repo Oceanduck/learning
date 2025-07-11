@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math Quiz for Kids</title>
+    <title>Practice Quizzes</title>
     <style>
         body {
             font-family: 'Comic Sans MS', cursive, sans-serif;
@@ -16,469 +16,374 @@
             align-items: center;
         }
         
-        .quiz-container {
+        .cover-container {
             background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            max-width: 600px;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            max-width: 900px;
             width: 100%;
             text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         h1 {
-            color: #4a5568;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        
-        .emoji {
-            font-size: 3em;
-            margin: 10px;
-        }
-        
-        .question {
-            font-size: 1.3em;
             color: #2d3748;
-            margin: 20px 0;
-            padding: 20px;
-            background: #f7fafc;
-            border-radius: 15px;
-            border-left: 5px solid #4299e1;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         
-        .input-section {
-            margin: 25px 0;
-        }
-        
-        input[type="number"] {
+        .subtitle {
+            color: #4a5568;
             font-size: 1.5em;
-            padding: 15px;
-            border: 3px solid #4299e1;
-            border-radius: 10px;
-            width: 150px;
-            text-align: center;
-            font-family: inherit;
+            margin-bottom: 30px;
         }
         
-        button {
-            font-size: 1.2em;
-            padding: 15px 30px;
-            margin: 10px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-family: inherit;
-            transition: all 0.3s;
-        }
-        
-        .check-btn {
-            background: #48bb78;
-            color: white;
-        }
-        
-        .check-btn:hover {
-            background: #38a169;
-            transform: translateY(-2px);
-        }
-        
-        .next-btn {
-            background: #4299e1;
-            color: white;
-        }
-        
-        .next-btn:hover {
-            background: #3182ce;
-            transform: translateY(-2px);
-        }
-        
-        .result {
-            font-size: 1.4em;
+        .emoji-header {
+            font-size: 4em;
             margin: 20px 0;
-            padding: 15px;
-            border-radius: 10px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        
+        .quiz-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .quiz-card {
+            background: linear-gradient(145deg, #f7fafc, #edf2f7);
+            border-radius: 20px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .quiz-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .quiz-card.maths {
+            border-color: #4299e1;
+        }
+        
+        .quiz-card.maths:hover {
+            background: linear-gradient(145deg, #e6f3ff, #bee3f8);
+        }
+        
+        .quiz-card.science {
+            border-color: #48bb78;
+        }
+        
+        .quiz-card.science:hover {
+            background: linear-gradient(145deg, #f0fff4, #c6f6d5);
+        }
+        
+        .quiz-card.english {
+            border-color: #9f7aea;
+        }
+        
+        .quiz-card.english:hover {
+            background: linear-gradient(145deg, #faf5ff, #e9d8fd);
+        }
+        
+        .quiz-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .quiz-title {
+            font-size: 2em;
+            color: #2d3748;
+            margin-bottom: 15px;
             font-weight: bold;
         }
         
-        .correct {
-            background: #c6f6d5;
-            color: #22543d;
-            border: 2px solid #48bb78;
-        }
-        
-        .incorrect {
-            background: #fed7d7;
-            color: #742a2a;
-            border: 2px solid #e53e3e;
-        }
-        
-        .progress {
-            margin: 20px 0;
-            font-size: 1.1em;
+        .quiz-description {
+            font-size: 1.2em;
             color: #4a5568;
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
         
-        .progress-bar {
-            width: 100%;
-            height: 20px;
-            background: #e2e8f0;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #48bb78, #38a169);
-            transition: width 0.5s ease;
-        }
-        
-        .final-score {
-            font-size: 1.8em;
-            color: #2d3748;
+        .quiz-features {
+            text-align: left;
             margin: 20px 0;
         }
         
-        .restart-btn {
-            background: #9f7aea;
-            color: white;
-            font-size: 1.3em;
-            padding: 15px 25px;
+        .quiz-features li {
+            color: #2d3748;
+            margin: 8px 0;
+            font-size: 1.1em;
         }
         
-        .restart-btn:hover {
-            background: #805ad5;
-            transform: translateY(-2px);
+        .start-button {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.3em;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
         }
-
-        .joke-section {
-            background: #fff5f5;
+        
+        .start-button:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4);
+        }
+        
+        .start-button.science {
+            background: #48bb78;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+        }
+        
+        .start-button.science:hover {
+            background: #38a169;
+            box-shadow: 0 6px 20px rgba(72, 187, 120, 0.4);
+        }
+        
+        .start-button.english {
+            background: #9f7aea;
+            box-shadow: 0 4px 15px rgba(159, 122, 234, 0.3);
+        }
+        
+        .start-button.english:hover {
+            background: #805ad5;
+            box-shadow: 0 6px 20px rgba(159, 122, 234, 0.4);
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e2e8f0;
+            color: #4a5568;
+            font-size: 1.1em;
+        }
+        
+        .encouragement {
+            background: linear-gradient(135deg, #fff5f5, #fed7d7);
+            border: 2px solid #f687b3;
             border-radius: 15px;
             padding: 20px;
-            margin: 20px 0;
-            border: 2px solid #f687b3;
+            margin: 30px 0;
+            font-size: 1.3em;
+            color: #2d3748;
+        }
+        
+        .year-level {
+            background: #4299e1;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 1em;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .quiz-title {
+                font-size: 1.8em;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="quiz-container">
-        <h1>🧮 Math Quiz Time! 🧮</h1>
-        <span class="emoji">🌟</span>
+    <div class="cover-container">
+        <div class="emoji-header">🎓</div>
+        <h1>Practice Quizzes</h1>
+        <div class="year-level">Year 2</div>
+        <p class="subtitle">Choose your adventure and test your knowledge!</p>
         
-        <div class="progress">
-            <div>Question <span id="questionNumber">1</span> of 10</div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
+        <div class="encouragement">
+            🌟 Ready to show what you know? Pick a subject below and let's have some fun learning! 🌟
+        </div>
+        
+        <div class="quiz-grid">
+            <!-- Maths Quiz Card -->
+            <div class="quiz-card maths" onclick="openQuiz('maths')">
+                <div class="quiz-icon">🧮</div>
+                <div class="quiz-title">Maths Game</div>
+                <div class="quiz-description">
+                    Solve fun word problems with addition, subtraction, multiplication, and division!
+                </div>
+                <ul class="quiz-features">
+                    <li>📊 10 different questions each time</li>
+                    <li>🎯 Two attempts per question</li>
+                    <li>📝 See all answers at the end</li>
+                    <li>🎉 Fun maths jokes included!</li>
+                </ul>
+                <button class="start-button" onclick="event.stopPropagation(); openQuiz('maths')">
+                    Start Maths! 🚀
+                </button>
+            </div>
+            
+            <!-- Science Quiz Card -->
+            <div class="quiz-card science" onclick="openQuiz('science')">
+                <div class="quiz-icon">🔬</div>
+                <div class="quiz-title">Science Quiz</div>
+                <div class="quiz-description">
+                    Explore the world of animals, plants, weather, and amazing science facts!
+                </div>
+                <ul class="quiz-features">
+                    <li>🐨 Australian animals and nature</li>
+                    <li>🌱 Plants, weather, and life cycles</li>
+                    <li>🧪 Fun scientific discoveries</li>
+                    <li>💡 Learn something new every time!</li>
+                </ul>
+                <button class="start-button science" onclick="event.stopPropagation(); openQuiz('science')">
+                    Explore Science! 🌟
+                </button>
+            </div>
+            
+            <!-- English Quiz Card -->
+            <div class="quiz-card english" onclick="openQuiz('english')">
+                <div class="quiz-icon">📚</div>
+                <div class="quiz-title">English Quiz</div>
+                <div class="quiz-description">
+                    Test your reading, vocabulary, grammar, and word skills with exciting stories!
+                </div>
+                <ul class="quiz-features">
+                    <li>📖 Reading comprehension stories</li>
+                    <li>🔤 Rhymes, synonyms, and antonyms</li>
+                    <li>✏️ Grammar and sentence skills</li>
+                    <li>🎭 Funny word jokes to enjoy!</li>
+                </ul>
+                <button class="start-button english" onclick="event.stopPropagation(); openQuiz('english')">
+                    Start Reading! 📖
+                </button>
             </div>
         </div>
         
-        <div class="question" id="questionText"></div>
-        
-        <div class="input-section">
-            <input type="number" id="answerInput" placeholder="Your answer">
-        </div>
-        
-        <button class="check-btn" id="checkBtn" onclick="checkAnswer()">Check Answer! ✓</button>
-        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Question →</button>
-        
-        <div class="result" id="result" style="display: none;"></div>
-        
-        <div id="finalScore" style="display: none;">
-            <div class="final-score">Quiz Complete! 🎉</div>
-            <div class="final-score">Your Score: <span id="score"></span>/10</div>
-            <div class="joke-section" id="jokeSection"></div>
-            <div class="emoji">🏆</div>
-            <button class="restart-btn" onclick="restartQuiz()">Play Again!</button>
+        <div class="footer">
+            <p><strong>💡 Tip:</strong> Take your time, read carefully, and remember - learning is an adventure!</p>
+            <p><strong>🏆 Goal:</strong> Have fun while practicing and learning new things!</p>
         </div>
     </div>
 
     <script>
-        // Question generator functions to create problems dynamically
-        const questionGenerators = {
-            addition: () => {
-                const types = [
-                    () => {
-                        const a = Math.floor(Math.random() * 50) + 10;
-                        const b = Math.floor(Math.random() * 30) + 5;
-                        const c = Math.floor(Math.random() * 20) + 3;
-                        return {
-                            question: `Emma has ${a} stickers. Her friend gives her ${b} more stickers, and her brother gives her ${c} stickers. How many stickers does Emma have now?`,
-                            answer: a + b + c
-                        };
-                    },
-                    () => {
-                        const morning = Math.floor(Math.random() * 80) + 20;
-                        const afternoon = Math.floor(Math.random() * 60) + 15;
-                        return {
-                            question: `A bakery made ${morning} cookies in the morning and ${afternoon} cookies in the afternoon. How many cookies did they make in total?`,
-                            answer: morning + afternoon
-                        };
-                    },
-                    () => {
-                        const red = Math.floor(Math.random() * 40) + 10;
-                        const blue = Math.floor(Math.random() * 40) + 10;
-                        const green = Math.floor(Math.random() * 30) + 5;
-                        return {
-                            question: `In a garden, there are ${red} red flowers, ${blue} blue flowers, and ${green} green flowers. How many flowers are there altogether?`,
-                            answer: red + blue + green
-                        };
+        function openQuiz(subject) {
+            // Create a fun loading message
+            document.body.innerHTML = `
+                <div style="
+                    display: flex; 
+                    justify-content: center; 
+                    align-items: center; 
+                    height: 100vh; 
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    font-family: 'Comic Sans MS', cursive;
+                    text-align: center;
+                    color: white;
+                ">
+                    <div>
+                        <div style="font-size: 5em; margin-bottom: 20px;">
+                            ${subject === 'maths' ? '🧮' : subject === 'science' ? '🔬' : '📚'}
+                        </div>
+                        <h2 style="font-size: 2.5em; margin-bottom: 20px;">
+                            Loading your ${subject === 'maths' ? 'Maths Game' : subject === 'science' ? 'Science Quiz' : 'English Quiz'}...
+                        </h2>
+                        <div style="font-size: 1.5em; animation: pulse 1.5s infinite;">
+                            Get ready to have some fun! 🚀
+                        </div>
+                    </div>
+                </div>
+                <style>
+                    @keyframes pulse {
+                        0% { opacity: 1; }
+                        50% { opacity: 0.5; }
+                        100% { opacity: 1; }
                     }
-                ];
-                return types[Math.floor(Math.random() * types.length)]();
-            },
-
-            subtraction: () => {
-                const types = [
-                    () => {
-                        const total = Math.floor(Math.random() * 80) + 40;
-                        const sold = Math.floor(Math.random() * 30) + 10;
-                        return {
-                            question: `A toy store had ${total} toys. They sold ${sold} toys during the sale. How many toys are left?`,
-                            answer: total - sold
-                        };
-                    },
-                    () => {
-                        const start = Math.floor(Math.random() * 100) + 50;
-                        const gave1 = Math.floor(Math.random() * 20) + 5;
-                        const gave2 = Math.floor(Math.random() * 15) + 3;
-                        return {
-                            question: `Tom had ${start} marbles. He gave ${gave1} marbles to his friend and ${gave2} marbles to his sister. How many marbles does Tom have left?`,
-                            answer: start - gave1 - gave2
-                        };
-                    },
-                    () => {
-                        const birds = Math.floor(Math.random() * 120) + 60;
-                        const flew = Math.floor(Math.random() * 40) + 15;
-                        return {
-                            question: `There were ${birds} birds on a tree. ${flew} birds flew away. How many birds are still on the tree?`,
-                            answer: birds - flew
-                        };
-                    }
-                ];
-                return types[Math.floor(Math.random() * types.length)]();
-            },
-
-            multiplication: () => {
-                const types = [
-                    () => {
-                        const rows = Math.floor(Math.random() * 8) + 3;
-                        const items = Math.floor(Math.random() * 12) + 4;
-                        return {
-                            question: `There are ${rows} rows of chairs. Each row has ${items} chairs. How many chairs are there in total?`,
-                            answer: rows * items
-                        };
-                    },
-                    () => {
-                        const packs = Math.floor(Math.random() * 9) + 2;
-                        const each = Math.floor(Math.random() * 15) + 6;
-                        return {
-                            question: `Each pack of stickers has ${each} stickers. If you buy ${packs} packs, how many stickers do you get?`,
-                            answer: packs * each
-                        };
-                    },
-                    () => {
-                        const students = Math.floor(Math.random() * 12) + 8;
-                        const books = Math.floor(Math.random() * 6) + 3;
-                        return {
-                            question: `Each student needs ${books} notebooks. If there are ${students} students, how many notebooks are needed in total?`,
-                            answer: students * books
-                        };
-                    }
-                ];
-                return types[Math.floor(Math.random() * types.length)]();
-            },
-
-            division: () => {
-                const types = [
-                    () => {
-                        const divisor = Math.floor(Math.random() * 8) + 4;
-                        const quotient = Math.floor(Math.random() * 12) + 6;
-                        const total = divisor * quotient;
-                        return {
-                            question: `A library has ${total} books. If the books are arranged equally on ${divisor} shelves, how many books will be on each shelf?`,
-                            answer: quotient
-                        };
-                    },
-                    () => {
-                        const perBag = Math.floor(Math.random() * 8) + 4;
-                        const bags = Math.floor(Math.random() * 10) + 5;
-                        const total = perBag * bags;
-                        return {
-                            question: `A fruit vendor has ${total} apples. He sells them in bags of ${perBag} apples each. How many bags can he make?`,
-                            answer: bags
-                        };
-                    },
-                    () => {
-                        const perBox = Math.floor(Math.random() * 9) + 6;
-                        const boxes = Math.floor(Math.random() * 8) + 4;
-                        const total = perBox * boxes;
-                        return {
-                            question: `There are ${total} cookies to be shared equally among ${boxes} children. How many cookies will each child get?`,
-                            answer: perBox
-                        };
-                    }
-                ];
-                return types[Math.floor(Math.random() * types.length)]();
-            }
-        };
-
-        const jokes = [
-            "Why don't scientists trust atoms? Because they make up everything! 😄",
-            "What do you call a sleeping bull? A bulldozer! 🐂💤",
-            "Why don't eggs tell jokes? They'd crack each other up! 🥚😂",
-            "What do you call a bear with no teeth? A gummy bear! 🐻🍬",
-            "Why did the math book look so sad? Because it was full of problems! 📚😢",
-            "What's orange and sounds like a parrot? A carrot! 🥕🦜",
-            "Why don't skeletons fight each other? They don't have the guts! 💀😄",
-            "What do you call a dinosaur that crashes his car? Tyrannosaurus Wrecks! 🦕🚗",
-            "Why did the banana go to the doctor? It wasn't peeling well! 🍌🏥",
-            "What do you call a fish wearing a crown? A king fish! 🐟👑",
-            "Why did the cookie go to the doctor? Because it felt crumbly! 🍪🏥",
-            "What do you call a cow with no legs? Ground beef! 🐄😄",
-            "Why don't melons get married? Because they cantaloupe! 🍈💒",
-            "What's a computer's favorite snack? Microchips! 💻🍟",
-            "Why did the scarecrow win an award? He was outstanding in his field! 🌾🏆",
-            "What do you call a pig that does karate? A pork chop! 🐷🥋",
-            "Why don't elephants use computers? They're afraid of the mouse! 🐘🖱️",
-            "What do you call a belt made of watches? A waist of time! ⌚😄",
-            "Why did the student eat his homework? Because the teacher told him it was a piece of cake! 🍰📝",
-            "What do you call a fake noodle? An impasta! 🍝😄"
-        ];
-
-        let currentQuestion = 0;
-        let score = 0;
-        let answered = false;
-        let questions = [];
-
-        function generateRandomQuestions() {
-            const questionTypes = ['addition', 'subtraction', 'multiplication', 'division'];
-            const newQuestions = [];
-            
-            for (let i = 0; i < 10; i++) {
-                const randomType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
-                newQuestions.push(questionGenerators[randomType]());
-            }
-            
-            return newQuestions;
-        }
-
-        function getRandomJoke() {
-            return jokes[Math.floor(Math.random() * jokes.length)];
-        }
-
-        function loadQuestion() {
-            document.getElementById('questionNumber').textContent = currentQuestion + 1;
-            document.getElementById('questionText').textContent = questions[currentQuestion].question;
-            document.getElementById('answerInput').value = '';
-            document.getElementById('answerInput').focus();
-            document.getElementById('result').style.display = 'none';
-            document.getElementById('checkBtn').style.display = 'inline-block';
-            document.getElementById('nextBtn').style.display = 'none';
-            answered = false;
-            updateProgress();
-        }
-
-        function updateProgress() {
-            const progress = (currentQuestion / 10) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-        }
-
-        function checkAnswer() {
-            if (answered) return;
-            
-            const userAnswer = parseInt(document.getElementById('answerInput').value);
-            const correctAnswer = questions[currentQuestion].answer;
-            const resultDiv = document.getElementById('result');
-            
-            if (isNaN(userAnswer)) {
-                alert('Please enter a number!');
-                return;
-            }
-            
-            if (userAnswer === correctAnswer) {
-                score++;
-                answered = true;
-                resultDiv.innerHTML = '🎉 Correct! Well done! 🎉';
-                resultDiv.className = 'result correct';
-                resultDiv.style.display = 'block';
-                document.getElementById('checkBtn').style.display = 'none';
-                document.getElementById('nextBtn').style.display = 'inline-block';
-            } else {
-                resultDiv.innerHTML = `❌ Not quite right. Try again! Think carefully! 💪`;
-                resultDiv.className = 'result incorrect';
-                resultDiv.style.display = 'block';
-            }
-        }
-
-        function nextQuestion() {
-            currentQuestion++;
-            
-            if (currentQuestion < 10) {
-                loadQuestion();
-            } else {
-                showFinalScore();
-            }
-        }
-
-        function showFinalScore() {
-            document.querySelector('.question').style.display = 'none';
-            document.querySelector('.input-section').style.display = 'none';
-            document.getElementById('checkBtn').style.display = 'none';
-            document.getElementById('nextBtn').style.display = 'none';
-            document.getElementById('result').style.display = 'none';
-            document.querySelector('.progress').style.display = 'none';
-            
-            const joke = getRandomJoke();
-            const scoreText = score === 10 ? "Perfect score! You're a math superstar! 🌟" : 
-                             score >= 8 ? "Great job! You're really good at math! 👏" :
-                             score >= 6 ? "Good work! Keep practicing! 💪" :
-                             "Nice try! Practice makes perfect! 😊";
-            
-            document.getElementById('score').textContent = score;
-            document.getElementById('jokeSection').innerHTML = `
-                <h3>🎭 Here's a joke for you! 🎭</h3>
-                <p style="font-size: 1.2em; color: #2d3748;">${joke}</p>
-                <p style="color: #4a5568; margin-top: 15px;">${scoreText}</p>
+                </style>
             `;
-            document.getElementById('finalScore').style.display = 'block';
             
-            document.getElementById('progressFill').style.width = '100%';
+            // Here you would normally navigate to the specific quiz
+            // For demonstration, I'll show instructions
+            setTimeout(() => {
+                alert(`To complete the setup:
+                
+1. Save this cover page as 'index.html'
+2. Save your Maths Game as 'maths.html'  
+3. Save your Science Quiz as 'science.html'
+4. Save your English Quiz as 'english.html'
+
+Then update the openQuiz function to:
+window.location.href = subject + '.html';
+
+This will create a complete quiz system!`);
+                
+                // Reload the page to return to menu
+                location.reload();
+            }, 2000);
         }
-
-        function restartQuiz() {
-            currentQuestion = 0;
-            score = 0;
-            answered = false;
-            questions = generateRandomQuestions();
+        
+        // Add some interactive sparkle effects
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.style.position = 'fixed';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            sparkle.style.fontSize = Math.random() * 20 + 10 + 'px';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.animation = 'sparkleFloat 3s ease-out forwards';
+            document.body.appendChild(sparkle);
             
-            document.querySelector('.question').style.display = 'block';
-            document.querySelector('.input-section').style.display = 'block';
-            document.querySelector('.progress').style.display = 'block';
-            document.getElementById('finalScore').style.display = 'none';
-            
-            loadQuestion();
+            setTimeout(() => sparkle.remove(), 3000);
         }
-
-        // Event listeners
-        document.getElementById('answerInput').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                if (!answered) {
-                    checkAnswer();
-                } else {
-                    nextQuestion();
-                }
+        
+        // Add sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkleFloat {
+                0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+                100% { opacity: 0; transform: translateY(-100px) rotate(360deg); }
             }
+        `;
+        document.head.appendChild(style);
+        
+        // Create sparkles periodically
+        setInterval(createSparkle, 1000);
+        
+        // Add click sound effect simulation
+        document.querySelectorAll('.quiz-card, .start-button').forEach(element => {
+            element.addEventListener('click', () => {
+                // Visual feedback
+                element.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    element.style.transform = '';
+                }, 150);
+            });
         });
-
-        document.getElementById('answerInput').addEventListener('input', function() {
-            if (!answered) {
-                document.getElementById('result').style.display = 'none';
-            }
-        });
-
-        // Initialize the quiz
-        questions = generateRandomQuestions();
-        loadQuestion();
     </script>
 </body>
 </html>
