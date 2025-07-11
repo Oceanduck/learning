@@ -293,57 +293,7 @@
 
     <script>
         function openQuiz(subject) {
-            // Create a fun loading message
-            document.body.innerHTML = `
-                <div style="
-                    display: flex; 
-                    justify-content: center; 
-                    align-items: center; 
-                    height: 100vh; 
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    font-family: 'Comic Sans MS', cursive;
-                    text-align: center;
-                    color: white;
-                ">
-                    <div>
-                        <div style="font-size: 5em; margin-bottom: 20px;">
-                            ${subject === 'maths' ? '🧮' : subject === 'science' ? '🔬' : '📚'}
-                        </div>
-                        <h2 style="font-size: 2.5em; margin-bottom: 20px;">
-                            Loading your ${subject === 'maths' ? 'Maths Game' : subject === 'science' ? 'Science Quiz' : 'English Quiz'}...
-                        </h2>
-                        <div style="font-size: 1.5em; animation: pulse 1.5s infinite;">
-                            Get ready to have some fun! 🚀
-                        </div>
-                    </div>
-                </div>
-                <style>
-                    @keyframes pulse {
-                        0% { opacity: 1; }
-                        50% { opacity: 0.5; }
-                        100% { opacity: 1; }
-                    }
-                </style>
-            `;
-            
-            // Here you would normally navigate to the specific quiz
-            // For demonstration, I'll show instructions
-            setTimeout(() => {
-                alert(`To complete the setup:
-                
-1. Save this cover page as 'index.html'
-2. Save your Maths Game as 'maths.html'  
-3. Save your Science Quiz as 'science.html'
-4. Save your English Quiz as 'english.html'
-
-Then update the openQuiz function to:
-window.location.href = subject + '.html';
-
-This will create a complete quiz system!`);
-                
-                // Reload the page to return to menu
-                location.reload();
-            }, 2000);
+            window.location.href = subject + '.html';
         }
         
         // Add some interactive sparkle effects
