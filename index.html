@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quiz for Kids</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .quiz-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #4a5568;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .emoji {
+            font-size: 3em;
+            margin: 10px;
+        }
+        
+        .question {
+            font-size: 1.3em;
+            color: #2d3748;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 15px;
+            border-left: 5px solid #4299e1;
+        }
+        
+        .input-section {
+            margin: 25px 0;
+        }
+        
+        input[type="number"] {
+            font-size: 1.5em;
+            padding: 15px;
+            border: 3px solid #4299e1;
+            border-radius: 10px;
+            width: 150px;
+            text-align: center;
+            font-family: inherit;
+        }
+        
+        button {
+            font-size: 1.2em;
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        
+        .check-btn {
+            background: #48bb78;
+            color: white;
+        }
+        
+        .check-btn:hover {
+            background: #38a169;
+            transform: translateY(-2px);
+        }
+        
+        .next-btn {
+            background: #4299e1;
+            color: white;
+        }
+        
+        .next-btn:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+        }
+        
+        .result {
+            font-size: 1.4em;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        
+        .correct {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 2px solid #48bb78;
+        }
+        
+        .incorrect {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 2px solid #e53e3e;
+        }
+        
+        .progress {
+            margin: 20px 0;
+            font-size: 1.1em;
+            color: #4a5568;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #48bb78, #38a169);
+            transition: width 0.5s ease;
+        }
+        
+        .final-score {
+            font-size: 1.8em;
+            color: #2d3748;
+            margin: 20px 0;
+        }
+        
+        .restart-btn {
+            background: #9f7aea;
+            color: white;
+            font-size: 1.3em;
+            padding: 15px 25px;
+        }
+        
+        .restart-btn:hover {
+            background: #805ad5;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>🧮 Math Quiz Time! 🧮</h1>
+        <span class="emoji">🌟</span>
+        
+        <div class="progress">
+            <div>Question <span id="questionNumber">1</span> of 10</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+        
+        <div class="question" id="questionText"></div>
+        
+        <div class="input-section">
+            <input type="number" id="answerInput" placeholder="Your answer">
+        </div>
+        
+        <button class="check-btn" id="checkBtn" onclick="checkAnswer()">Check Answer! ✓</button>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Question →</button>
+        
+        <div class="result" id="result" style="display: none;"></div>
+        
+        <div id="finalScore" style="display: none;">
+            <div class="final-score">Quiz Complete! 🎉</div>
+            <div class="final-score">Your Score: <span id="score"></span>/10</div>
+            <div class="emoji">🏆</div>
+            <button class="restart-btn" onclick="restartQuiz()">Play Again!</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Sara has 24 stickers. She gives 8 stickers to her brother and 6 stickers to her friend. How many stickers does Sara have left?",
+                answer: 10
+            },
+            {
+                question: "A baker makes 36 cupcakes in the morning and 28 cupcakes in the afternoon. If he sells 45 cupcakes, how many cupcakes are left?",
+                answer: 19
+            },
+            {
+                question: "There are 5 rows of chairs in a classroom. Each row has 7 chairs. How many chairs are there in total?",
+                answer: 35
+            },
+            {
+                question: "Mom bought 3 packets of pencils. Each packet contains 12 pencils. How many pencils did she buy altogether?",
+                answer: 36
+            },
+            {
+                question: "A library has 84 books. If the books are arranged equally on 4 shelves, how many books will be on each shelf?",
+                answer: 21
+            },
+            {
+                question: "Tom collects 56 marbles. He wants to put them equally into 8 boxes. How many marbles will go in each box?",
+                answer: 7
+            },
+            {
+                question: "In a garden, there are 15 red roses, 23 yellow roses, and 18 pink roses. How many roses are there in the garden altogether?",
+                answer: 56
+            },
+            {
+                question: "A toy shop has 72 toys. On Monday, they sold 28 toys. On Tuesday, they sold 19 toys. How many toys are left in the shop?",
+                answer: 25
+            },
+            {
+                question: "Each student needs 4 notebooks for school. If there are 9 students in the class, how many notebooks are needed in total?",
+                answer: 36
+            },
+            {
+                question: "A fruit vendor has 96 apples. He sells them in bags of 6 apples each. How many bags can he make?",
+                answer: 16
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        function loadQuestion() {
+            document.getElementById('questionNumber').textContent = currentQuestion + 1;
+            document.getElementById('questionText').textContent = questions[currentQuestion].question;
+            document.getElementById('answerInput').value = '';
+            document.getElementById('answerInput').focus();
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('checkBtn').style.display = 'inline-block';
+            document.getElementById('nextBtn').style.display = 'none';
+            answered = false;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function checkAnswer() {
+            if (answered) return;
+            
+            const userAnswer = parseInt(document.getElementById('answerInput').value);
+            const correctAnswer = questions[currentQuestion].answer;
+            const resultDiv = document.getElementById('result');
+            
+            if (isNaN(userAnswer)) {
+                alert('Please enter a number!');
+                return;
+            }
+            
+            answered = true;
+            
+            if (userAnswer === correctAnswer) {
+                score++;
+                resultDiv.innerHTML = '🎉 Correct! Well done! 🎉';
+                resultDiv.className = 'result correct';
+            } else {
+                resultDiv.innerHTML = `❌ Not quite right. The correct answer is ${correctAnswer}. Keep trying! 💪`;
+                resultDiv.className = 'result incorrect';
+            }
+            
+            resultDiv.style.display = 'block';
+            document.getElementById('checkBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'inline-block';
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showFinalScore();
+            }
+        }
+
+        function showFinalScore() {
+            document.querySelector('.question').style.display = 'none';
+            document.querySelector('.input-section').style.display = 'none';
+            document.getElementById('checkBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('result').style.display = 'none';
+            document.querySelector('.progress').style.display = 'none';
+            
+            document.getElementById('score').textContent = score;
+            document.getElementById('finalScore').style.display = 'block';
+            
+            // Update progress bar to 100%
+            document.getElementById('progressFill').style.width = '100%';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answered = false;
+            
+            document.querySelector('.question').style.display = 'block';
+            document.querySelector('.input-section').style.display = 'block';
+            document.querySelector('.progress').style.display = 'block';
+            document.getElementById('finalScore').style.display = 'none';
+            
+            loadQuestion();
+        }
+
+        // Allow Enter key to submit answer
+        document.getElementById('answerInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                if (!answered) {
+                    checkAnswer();
+                } else {
+                    nextQuestion();
+                }
+            }
+        });
+
+        // Load first question when page loads
+        loadQuestion();
+    </script>
+</body>
+</html>
