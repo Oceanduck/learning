@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Quiz</title>
+    <title>History Quest</title>
     <style>
         body {
             font-family: 'Comic Sans MS', cursive, sans-serif;
@@ -77,7 +77,7 @@
         }
         
         .question::before {
-            content: '🌈';
+            content: '🦄🏛️🌈';
             position: absolute;
             top: 10px;
             right: 15px;
@@ -170,12 +170,27 @@
             background: linear-gradient(45deg, #38b2ac, #4fd1c7);
             color: white;
             border: 2px solid #2dd4bf;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .check-btn::before {
+            content: '✨';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
         }
         
         .check-btn:hover {
             background: linear-gradient(45deg, #2dd4bf, #14b8a6);
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 8px 25px rgba(56, 178, 172, 0.4);
+        }
+        
+        .check-btn:hover::before {
+            left: 10px;
         }
         
         .check-btn:disabled {
@@ -188,12 +203,27 @@
             background: linear-gradient(45deg, #4fd1c7, #2dd4bf);
             color: white;
             border: 2px solid #38b2ac;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .next-btn::before {
+            content: '🦄';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
         }
         
         .next-btn:hover {
             background: linear-gradient(45deg, #2dd4bf, #14b8a6);
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 8px 25px rgba(77, 209, 199, 0.4);
+        }
+        
+        .next-btn:hover::before {
+            left: 10px;
         }
         
         .result {
@@ -312,7 +342,7 @@
             padding: 10px;
             background: white;
             border-radius: 8px;
-            border-left: 4px solid #9f7aea;
+            border-left: 4px solid #38b2ac;
         }
 
         .answer-item.correct-answer {
@@ -342,9 +372,9 @@
         }
         
         .start-btn::before {
-            content: '🦄✨';
+            content: '🦄🏛️✨';
             position: absolute;
-            left: -40px;
+            left: -50px;
             top: 50%;
             transform: translateY(-50%);
             transition: all 0.3s ease;
@@ -357,7 +387,7 @@
         }
         
         .start-btn:hover::before {
-            left: 15px;
+            left: 20px;
         }
 
         .game-content {
@@ -373,14 +403,14 @@
 </head>
 <body>
     <div class="quiz-container">
-        <h1>🦄💖📚 Rainbow Reading Adventure 📚🌈💖</h1>
-        <span class="emoji">🦄💖✨</span>
+        <h1>🦄🏛️ Magical History Quest 🏛️🌈</h1>
+        <span class="emoji">🦄✨</span>
         
         <div class="welcome-screen" id="welcomeScreen">
-            <div class="emoji">🦄💖📖🌈</div>
-            <h2 style="color: #234e52; font-size: 2em; margin: 20px 0;">Ready for a magical reading adventure??</h2>
-            <div class="emoji">✨🦄💖✨</div>
-            <button class="start-btn" onclick="startGame()">Yes, Let's Read Magic! 🦄💖✨</button>
+            <div class="emoji">🦄🏛️🌈</div>
+            <h2 style="color: #234e52; font-size: 2em; margin: 20px 0;">Ready to explore magical ancient kingdoms??</h2>
+            <div class="emoji">✨🦄✨</div>
+            <button class="start-btn" onclick="startGame()">Yes, Let's Explore History! 🦄✨</button>
         </div>
         
         <div class="game-content" id="gameContent">
@@ -397,167 +427,182 @@
             
             <div class="answer-options" id="answerOptions"></div>
             
-            <button class="check-btn" id="checkBtn" onclick="checkAnswer()" disabled>Check Magic Answer! 🦄💖✨</button>
-            <button class="next-btn" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Magic Question 🌈💖→</button>
+            <button class="check-btn" id="checkBtn" onclick="checkAnswer()" disabled>Check Magic Answer! 🦄✨</button>
+            <button class="next-btn" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Magic Question 🌈→</button>
             
             <div class="result" id="result" style="display: none;"></div>
         </div>
         
         <div id="finalScore" style="display: none;">
-            <div class="final-score">Magical Adventure Complete! 🦄💖🌈🎉</div>
+            <div class="final-score">Magical History Quest Complete! 🦄🏛️🌈🎉</div>
             <div class="final-score">Your Score: <span id="score"></span>/10</div>
             <div class="answers-section" id="answersSection">
-                <h3>📝 All Quiz Answers:</h3>
+                <h3>📝 All Quest Answers:</h3>
                 <div id="allAnswers"></div>
             </div>
             <div class="joke-section" id="jokeSection"></div>
             <div class="emoji">🏆</div>
-            <button class="restart-btn" onclick="restartQuiz()">Play Again! 🦄💖</button>
-            <button class="restart-btn" onclick="goToHome()" style="background: linear-gradient(45deg, #2dd4bf, #0891b2); margin-left: 10px;">Back to Magic Kingdom 🦄💖🏠</button>
+            <button class="restart-btn" onclick="restartQuiz()">Play Again! 🦄</button>
+            <button class="restart-btn" onclick="goToHome()" style="background: linear-gradient(45deg, #2dd4bf, #0891b2); margin-left: 10px;">Back to Magic Kingdom 🦄🏠</button>
         </div>
     </div>
 
     <script>
-        // English questions for Year 2 students (ICAS style)
-        const englishQuestions = [
+        // History questions about ancient China and India for Year 2 students
+        const historyQuestions = [
+            // Ancient China Questions
             {
-                question: "Which word rhymes with 'cat'?",
-                options: ["dog", "hat", "bird", "fish"],
+                question: "Which famous wall was built in ancient China to protect the country?",
+                options: ["The Golden Wall", "The Great Wall of China", "The Magic Wall", "The Stone Wall"],
                 correctAnswer: 1,
-                explanation: "'Hat' rhymes with 'cat' because they both end with the same sound '-at'."
+                explanation: "The Great Wall of China was built over many years to protect China from invaders. It's so long you can see it from space!"
             },
             {
-                question: "What is the opposite of 'big'?",
-                options: ["large", "small", "huge", "tall"],
-                correctAnswer: 1,
-                explanation: "'Small' is the opposite of 'big'. They are antonyms - words with opposite meanings."
-            },
-            {
-                question: "Which sentence is written correctly?",
-                options: ["the dog is brown", "The dog is brown.", "the Dog is brown", "The dog is Brown"],
-                correctAnswer: 1,
-                explanation: "Sentences start with a capital letter and end with a full stop (period)."
-            },
-            {
-                question: "What type of word is 'run'?",
-                options: ["a describing word", "an action word", "a naming word", "a connecting word"],
-                correctAnswer: 1,
-                explanation: "'Run' is an action word (verb) because it tells us what someone or something does."
-            },
-            {
-                question: "<div class='story-text'>Emma went to the park. She played on the swings and slides. Then she had lunch with her mum.</div>Where did Emma go?",
-                options: ["to school", "to the park", "to the shop", "to the beach"],
-                correctAnswer: 1,
-                explanation: "The story clearly states 'Emma went to the park' in the first sentence."
-            },
-            {
-                question: "Which word has the same meaning as 'happy'?",
-                options: ["sad", "angry", "joyful", "tired"],
+                question: "What did ancient Chinese people invent that we still use to write today?",
+                options: ["Pencils", "Crayons", "Paper", "Chalk"],
                 correctAnswer: 2,
-                explanation: "'Joyful' means the same as 'happy'. These are synonyms - words with similar meanings."
+                explanation: "Ancient Chinese people invented paper around 2000 years ago! Before that, people wrote on animal skins and stone."
             },
             {
-                question: "How many syllables are in the word 'elephant'?",
-                options: ["2", "3", "4", "5"],
+                question: "What special drink did ancient China give to the world?",
+                options: ["Coffee", "Tea", "Hot chocolate", "Juice"],
                 correctAnswer: 1,
-                explanation: "'Elephant' has 3 syllables: el-e-phant. Count by clapping for each part of the word."
+                explanation: "Tea was first discovered in ancient China over 4000 years ago. Legend says it was discovered by accident when tea leaves fell into hot water!"
             },
             {
-                question: "<div class='story-text'>The little mouse was very hungry. It found a big piece of cheese. The mouse was so excited that it danced around the cheese.</div>How did the mouse feel when it found the cheese?",
-                options: ["sad", "angry", "excited", "sleepy"],
+                question: "What beautiful cloth did ancient China make from silkworms?",
+                options: ["Cotton", "Wool", "Silk", "Linen"],
                 correctAnswer: 2,
-                explanation: "The story says 'The mouse was so excited that it danced around the cheese.'"
+                explanation: "Silk comes from silkworms and was first made in ancient China. It was so precious that the secret was kept for hundreds of years!"
             },
             {
-                question: "Which word is a noun (naming word)?",
-                options: ["jump", "quickly", "beautiful", "flower"],
+                question: "What explosive invention came from ancient China that we use for celebrations?",
+                options: ["Balloons", "Fireworks", "Confetti", "Streamers"],
+                correctAnswer: 1,
+                explanation: "Fireworks were invented in ancient China over 1000 years ago. They were first used to scare away evil spirits!"
+            },
+            {
+                question: "What eating tools did ancient Chinese people invent?",
+                options: ["Forks", "Spoons", "Chopsticks", "Knives"],
+                correctAnswer: 2,
+                explanation: "Chopsticks were invented in ancient China over 3000 years ago. They were first used for cooking, then for eating!"
+            },
+            {
+                question: "What did ancient Chinese people use to find directions when traveling?",
+                options: ["Maps", "Stars", "Compass", "Landmarks"],
+                correctAnswer: 2,
+                explanation: "The compass was invented in ancient China. It helped sailors and travelers know which way was north!"
+            },
+            {
+                question: "What did ancient Chinese emperors live in?",
+                options: ["Castles", "Palaces", "Huts", "Caves"],
+                correctAnswer: 1,
+                explanation: "Chinese emperors lived in beautiful palaces with many rooms and gardens. The Forbidden City in Beijing is a famous palace!"
+            },
+            {
+                question: "What did ancient Chinese people believe brought good luck?",
+                options: ["Dragons", "Tigers", "Eagles", "Bears"],
+                correctAnswer: 0,
+                explanation: "In ancient China, dragons were symbols of good luck, power, and wisdom. Chinese dragons are different from scary dragons in other stories!"
+            },
+            {
+                question: "What sport did ancient Chinese people play that is still popular today?",
+                options: ["Basketball", "Football", "Table tennis", "Baseball"],
+                correctAnswer: 2,
+                explanation: "Table tennis (ping pong) has ancient roots in China, though the modern game developed later. Ancient Chinese also played early forms of football!"
+            },
+            
+            // Ancient India Questions
+            {
+                question: "What number system did ancient India give to the world?",
+                options: ["Roman numerals", "The number zero", "Fractions", "Multiplication"],
+                correctAnswer: 1,
+                explanation: "Ancient India invented the number zero and our modern number system (0-9). This made math much easier for everyone!"
+            },
+            {
+                question: "What ancient Indian buildings are famous for their beautiful domes?",
+                options: ["Pyramids", "Temples", "Castles", "Towers"],
+                correctAnswer: 1,
+                explanation: "Ancient Indian temples are famous for their beautiful architecture with domes, carvings, and colorful decorations."
+            },
+            {
+                question: "What game that we still play today was invented in ancient India?",
+                options: ["Chess", "Checkers", "Monopoly", "Cards"],
+                correctAnswer: 0,
+                explanation: "Chess was invented in ancient India around 1500 years ago. It was first called 'Chaturanga' which means 'four divisions'."
+            },
+            {
+                question: "What peaceful practice from ancient India helps people relax and stretch?",
+                options: ["Dancing", "Singing", "Yoga", "Swimming"],
+                correctAnswer: 2,
+                explanation: "Yoga started in ancient India over 5000 years ago. It helps people stay healthy, flexible, and calm."
+            },
+            {
+                question: "What ancient Indian language is still used in some ceremonies today?",
+                options: ["Latin", "Sanskrit", "Greek", "Arabic"],
+                correctAnswer: 1,
+                explanation: "Sanskrit is an ancient Indian language. Many yoga poses and Hindu ceremonies still use Sanskrit words today."
+            },
+            {
+                question: "What mathematical concept did ancient Indians master that helps us build things?",
+                options: ["Addition", "Geometry", "Counting", "Subtraction"],
+                correctAnswer: 1,
+                explanation: "Ancient Indians were excellent at geometry (shapes and measurements). This helped them build amazing temples and structures."
+            },
+            {
+                question: "What did ancient Indians use to heal sick people that we still use today?",
+                options: ["Magic spells", "Herbal medicine", "Dancing", "Singing"],
+                correctAnswer: 1,
+                explanation: "Ancient Indians developed Ayurveda, which uses herbs and natural remedies to heal people. Many of these are still used today!"
+            },
+            {
+                question: "What beautiful fabric art did ancient India create?",
+                options: ["Painting", "Tie-dye", "Weaving", "All of these"],
                 correctAnswer: 3,
-                explanation: "'Flower' is a noun because it names a thing. Nouns are words that name people, places, or things."
+                explanation: "Ancient India was famous for beautiful textiles including intricate weaving, colorful tie-dye, and fabric painting."
             },
             {
-                question: "What should you put at the end of a question?",
-                options: ["a full stop (.)", "a question mark (?)", "an exclamation mark (!)", "a comma (,)"],
-                correctAnswer: 1,
-                explanation: "Questions always end with a question mark (?) to show that someone is asking something."
-            },
-            {
-                question: "Which word starts with the same sound as 'sun'?",
-                options: ["moon", "star", "soap", "tree"],
+                question: "What did ancient Indian astronomers study in the sky?",
+                options: ["Birds", "Clouds", "Stars and planets", "Airplanes"],
                 correctAnswer: 2,
-                explanation: "'Soap' starts with the same 's' sound as 'sun'. They both begin with the letter 's'."
+                explanation: "Ancient Indian astronomers were very smart about studying stars and planets. They could predict eclipses and made accurate calendars!"
             },
             {
-                question: "<div class='story-text'>Jack has a pet dog named Buddy. Buddy loves to play fetch in the backyard. Every morning, Buddy wakes up Jack by licking his face.</div>What is the name of Jack's dog?",
-                options: ["Max", "Buddy", "Rex", "Charlie"],
+                question: "What wisdom stories from ancient India teach important lessons?",
+                options: ["Comics", "Fables", "Newspapers", "Cookbooks"],
                 correctAnswer: 1,
-                explanation: "The story tells us that 'Jack has a pet dog named Buddy.'"
+                explanation: "Ancient India gave us wonderful fables and stories like the Panchatantra, which teach important life lessons through animal characters."
             },
             {
-                question: "Which sentence shows something that happened in the past?",
-                options: ["I will eat lunch.", "I am eating lunch.", "I ate lunch.", "I eat lunch."],
+                question: "What ancient Indian concept teaches about treating all living things with kindness?",
+                options: ["Competition", "Ahimsa (non-violence)", "Fighting", "Hiding"],
+                correctAnswer: 1,
+                explanation: "Ahimsa means 'non-violence' or 'not hurting'. It teaches us to be kind to all living things - people, animals, and nature."
+            },
+            {
+                question: "What did ancient Indians believe connected all living things?",
+                options: ["Ropes", "Magic", "Karma (actions and consequences)", "Rivers"],
                 correctAnswer: 2,
-                explanation: "'I ate lunch' uses the past tense word 'ate' to show something that already happened."
-            },
-            {
-                question: "What is the plural (more than one) of 'child'?",
-                options: ["childs", "children", "child's", "childes"],
-                correctAnswer: 1,
-                explanation: "'Children' is the correct plural form of 'child'. Some words change completely in plural form."
-            },
-            {
-                question: "Which word describes how someone might walk?",
-                options: ["slowly", "red", "three", "under"],
-                correctAnswer: 0,
-                explanation: "'Slowly' is an adverb that describes how an action is done. It tells us the way someone walks."
-            },
-            {
-                question: "<div class='story-text'>The birthday party was lots of fun. There were balloons, cake, and games. All the children laughed and played together. Everyone went home with a smile.</div>What was at the party?",
-                options: ["balloons, cake, and games", "only balloons", "only cake", "only games"],
-                correctAnswer: 0,
-                explanation: "The story lists three things at the party: 'balloons, cake, and games.'"
-            },
-            {
-                question: "Which word is an adjective (describing word)?",
-                options: ["run", "quickly", "soft", "yesterday"],
-                correctAnswer: 2,
-                explanation: "'Soft' is an adjective because it describes what something feels like or looks like."
-            },
-            {
-                question: "What comes at the beginning of every sentence?",
-                options: ["a small letter", "a capital letter", "a number", "a question mark"],
-                correctAnswer: 1,
-                explanation: "Every sentence must start with a capital letter. This is an important grammar rule."
-            },
-            {
-                question: "Which word has a long 'a' sound?",
-                options: ["cat", "cake", "can", "cap"],
-                correctAnswer: 1,
-                explanation: "'Cake' has a long 'a' sound that says its name. The 'e' at the end makes the 'a' say its name."
-            },
-            {
-                question: "<div class='story-text'>Sarah loves reading books. Her favourite book is about a brave princess who saves a dragon. She reads this book every night before bed.</div>When does Sarah read her favourite book?",
-                options: ["in the morning", "at lunch time", "before bed", "after school"],
-                correctAnswer: 2,
-                explanation: "The story says 'She reads this book every night before bed.'"
+                explanation: "Karma means that our good actions bring good results, and our bad actions bring bad results. It teaches us to be kind and helpful."
             }
         ];
 
         const jokes = [
-            "Why did the book go to the doctor? Because it had a bad case of the covers! 📚😄",
-            "What do you call a sleeping bull? A bulldozer! 🐂💤",
-            "Why don't eggs tell jokes? They'd crack each other up! 🥚😂",
-            "What's a teacher's favourite nation? Expla-nation! 👩‍🏫📝",
-            "Why did the pencil go to school? To get sharper! ✏️🎓",
-            "What do you call a bear with no teeth? A gummy bear! 🐻🍬",
-            "Why don't books ever get cold? Because they have book jackets! 📖🧥",
-            "What do you call a dinosaur that loves to sleep? A dino-snore! 🦕😴",
-            "Why did the banana go to the doctor? It wasn't peeling well! 🍌🏥",
-            "What do you call a fish wearing a crown? A king fish! 🐟👑",
-            "Why don't elephants use computers? They're afraid of the mouse! 🐘🖱️",
-            "What do you call a pig that does karate? A pork chop! 🐷🥋",
-            "Why did the cookie go to the doctor? Because it felt crumbly! 🍪🏥",
-            "What's orange and sounds like a parrot? A carrot! 🥕🦜",
-            "Why don't skeletons fight each other? They don't have the guts! 💀😄"
+            "Why don't ancient Chinese dragons ever get lost? They always know the way to the Great Wall! 🐉🏯",
+            "What did the ancient Indian mathematician say when he invented zero? 'Nothing will ever be the same!' 🧮😄",
+            "Why did the ancient Chinese emperor love tea so much? Because it was his cup of tea! 🍵👑",
+            "What do you call a ancient Indian elephant who does yoga? Very flexible! 🐘🧘‍♀️",
+            "Why don't ancient Chinese fireworks ever feel sad? Because they always go out with a bang! 🎆😊",
+            "What did ancient Indians say when they invented chess? 'Check this out!' ♟️👑",
+            "Why did ancient Chinese people love silk so much? It was smooth sailing! 🧵⛵",
+            "What do you call an ancient Indian temple that tells jokes? A fun-da-mental building! 🏛️😄",
+            "Why were ancient Chinese compasses always so helpful? They always pointed you in the right direction! 🧭➡️",
+            "What did the ancient Indian yogi say to the stressed student? 'Just go with the flow!' 🧘‍♂️💆",
+            "Why don't ancient Chinese chopsticks ever argue? They always stick together! 🥢❤️",
+            "What's an ancient dragon's favorite type of music? Rock and roar! 🐉🎸",
+            "Why did the ancient Indian spice trader never get lost? He always knew his way around the world! 🌶️🗺️",
+            "What do you call ancient Chinese paper that's really funny? Tearable jokes! 📜😂",
+            "Why were ancient Indian mathematicians so calm? They had found their inner zero! 0️⃣🧘‍♀️"
         ];
 
         let currentQuestion = 0;
@@ -566,17 +611,16 @@
         let questions = [];
         let questionResults = [];
         let selectedAnswer = -1;
-
         let usedQuestions = [];
 
         function generateRandomQuestions() {
             // Reset used questions if we've used all available questions
-            if (usedQuestions.length >= englishQuestions.length - 10) {
+            if (usedQuestions.length >= historyQuestions.length - 10) {
                 usedQuestions = [];
             }
             
             // Get available questions (not recently used)
-            const availableQuestions = englishQuestions.filter((_, index) => !usedQuestions.includes(index));
+            const availableQuestions = historyQuestions.filter((_, index) => !usedQuestions.includes(index));
             
             // Shuffle available questions using Fisher-Yates algorithm for better randomization
             const shuffled = [...availableQuestions];
@@ -588,7 +632,7 @@
             // Take 10 questions and remember which ones we used
             const selectedQuestions = shuffled.slice(0, 10);
             selectedQuestions.forEach(question => {
-                const originalIndex = englishQuestions.indexOf(question);
+                const originalIndex = historyQuestions.indexOf(question);
                 if (originalIndex !== -1) {
                     usedQuestions.push(originalIndex);
                 }
@@ -686,7 +730,7 @@
                     attempts: currentAttempt,
                     explanation: questions[currentQuestion].explanation
                 };
-                resultDiv.innerHTML = '🎉 Correct! Well done! 🎉';
+                resultDiv.innerHTML = '🎉 Correct! Well done, brave explorer! 🎉';
                 resultDiv.className = 'result correct';
                 resultDiv.style.display = 'block';
                 document.getElementById('checkBtn').style.display = 'none';
@@ -696,7 +740,7 @@
                 if (currentAttempt < 2) {
                     currentAttempt++;
                     updateAttemptsInfo();
-                    resultDiv.innerHTML = `❌ Not quite right. You have one more try! 💪`;
+                    resultDiv.innerHTML = `❌ Not quite right. You have one more try, magical explorer! 💪🦄`;
                     resultDiv.className = 'result incorrect';
                     resultDiv.style.display = 'block';
                     
@@ -769,15 +813,15 @@
             document.getElementById('gameContent').style.display = 'none';
             
             const joke = getRandomJoke();
-            const scoreText = score === 10 ? "Perfect score! You're an English superstar! 🌟" : 
-                             score >= 8 ? "Great job! Your reading and writing skills are excellent! 👏" :
-                             score >= 6 ? "Good work! Keep reading and learning! 💪" :
-                             "Nice try! Reading is the key to learning! 😊";
+            const scoreText = score === 10 ? "Perfect score! You're a history superstar! 🌟🏛️" : 
+                             score >= 8 ? "Great job! You know lots about ancient civilizations! 👏🦄" :
+                             score >= 6 ? "Good work! Keep exploring history! 💪🌈" :
+                             "Nice try! History is full of amazing discoveries! 😊✨";
             
             document.getElementById('score').textContent = score;
             showAllAnswers();
             document.getElementById('jokeSection').innerHTML = `
-                <h3>🎭 Here's a word joke for you! 🎭</h3>
+                <h3>🎭 Here's a magical history joke for you! 🎭</h3>
                 <p style="font-size: 1.2em; color: #2d3748;">${joke}</p>
                 <p style="color: #4a5568; margin-top: 15px;">${scoreText}</p>
             `;
@@ -808,7 +852,7 @@
 
         // Add magical floating elements
         function createFloatingElement() {
-            const elements = ['🦄', '🌈', '✨', '🎀', '💖', '🌟', '💕', '💜', '💙', '💚'];
+            const elements = ['🦄', '🌈', '✨', '🏛️', '🐉', '🌟', '🎀', '💖', '👑', '📜'];
             const element = document.createElement('div');
             element.innerHTML = elements[Math.floor(Math.random() * elements.length)];
             element.style.position = 'fixed';
@@ -833,26 +877,8 @@
         `;
         document.head.appendChild(floatStyle);
         
-        // Add extra hearts and rainbows to floating elements
-        function createExtraFloatingElements() {
-            const extraElements = ['💖', '💕', '🌈', '💜', '💙'];
-            const element = document.createElement('div');
-            element.innerHTML = extraElements[Math.floor(Math.random() * extraElements.length)];
-            element.style.position = 'fixed';
-            element.style.left = Math.random() * window.innerWidth + 'px';
-            element.style.top = window.innerHeight + 'px';
-            element.style.fontSize = Math.random() * 30 + 20 + 'px';
-            element.style.pointerEvents = 'none';
-            element.style.animation = 'floatUp 7s linear forwards';
-            element.style.zIndex = '-1';
-            document.body.appendChild(element);
-            
-            setTimeout(() => element.remove(), 7000);
-        }
-        
         // Create floating elements periodically
         setInterval(createFloatingElement, 2000);
-        setInterval(createExtraFloatingElements, 2500);
 
         // Initialize the quiz - show welcome screen first
         questions = generateRandomQuestions();

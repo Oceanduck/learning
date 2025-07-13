@@ -152,6 +152,15 @@
             background: linear-gradient(145deg, #f0fdfa, #ccfbf1, #7dd3fc, #38bdf8);
         }
         
+        .quiz-card.history {
+            border-color: #14b8a6;
+            background: linear-gradient(145deg, #ffffff, #f0fdfa, #ccfbf1, #fbbf24);
+        }
+        
+        .quiz-card.history:hover {
+            background: linear-gradient(145deg, #f0fdfa, #ccfbf1, #fbbf24, #f59e0b);
+        }
+        
         .quiz-icon {
             font-size: 4em;
             margin-bottom: 20px;
@@ -238,6 +247,16 @@
             box-shadow: 0 8px 25px rgba(45, 212, 191, 0.6);
         }
         
+        .start-button.history {
+            background: linear-gradient(45deg, #14b8a6, #fbbf24, #f59e0b);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+        
+        .start-button.history:hover {
+            background: linear-gradient(45deg, #0d9488, #f59e0b, #d97706);
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.6);
+        }
+        
         .footer {
             margin-top: 40px;
             padding-top: 30px;
@@ -314,22 +333,22 @@
 </head>
 <body>
     <div class="cover-container">
-        <div class="emoji-header">🦄</div>
+        <div class="emoji-header">🦄🌈💖</div>
         <h1>Magical Learning Adventure</h1>
-        <div class="year-level">🌟 Year 2 Superstar 🌟</div>
-        <p class="subtitle">Choose your magical quest and discover amazing things! 🌈✨</p>
+        <div class="year-level">🌟💖 Year 2 Superstar 💖🌟</div>
+        <p class="subtitle">Choose your magical quest and discover amazing things! 🌈💖✨</p>
         
         <div class="encouragement">
-            ✨ Welcome to your magical learning kingdom! Pick a sparkly subject and let's go on an amazing adventure together! ✨
+            ✨💖 Welcome to your magical learning kingdom! Pick a sparkly subject and let's go on an amazing adventure together! 💖✨
         </div>
         
         <div class="quiz-grid">
             <!-- Maths Quiz Card -->
             <div class="quiz-card maths" onclick="openQuiz('maths')">
-                <div class="quiz-icon">🦄🧮</div>
+                <div class="quiz-icon">🦄💖🧮🌈</div>
                 <div class="quiz-title">Magical Maths Adventure</div>
                 <div class="quiz-description">
-                    Join the unicorns and solve magical word problems with sparkly numbers! 🌈✨
+                    Join the unicorns and solve magical word problems with sparkly numbers! 🌈💖✨
                 </div>
                 <ul class="quiz-features">
                     <li>📊 10 different questions each time</li>
@@ -338,16 +357,16 @@
                     <li>🦄 Magical unicorn jokes included!</li>
                 </ul>
                 <button class="start-button" onclick="event.stopPropagation(); openQuiz('maths')">
-                    Start Magic! 🦄✨
+                    Start Magic! 🦄💖✨
                 </button>
             </div>
             
             <!-- Science Quiz Card -->
             <div class="quiz-card science" onclick="openQuiz('science')">
-                <div class="quiz-icon">🦄🔬</div>
+                <div class="quiz-icon">🦄💖🔬🌈</div>
                 <div class="quiz-title">Enchanted Science Quest</div>
                 <div class="quiz-description">
-                    Discover magical creatures, rainbow plants, and amazing science wonders! 🌈🦄
+                    Discover magical creatures, rainbow plants, and amazing science wonders! 🌈💖🦄
                 </div>
                 <ul class="quiz-features">
                     <li>🐨 Australian animals and nature</li>
@@ -356,16 +375,16 @@
                     <li>🦄 Learn magical facts every time!</li>
                 </ul>
                 <button class="start-button science" onclick="event.stopPropagation(); openQuiz('science')">
-                    Explore Magic! 🦄🌈
+                    Explore Magic! 🦄💖🌈
                 </button>
             </div>
             
             <!-- English Quiz Card -->
             <div class="quiz-card english" onclick="openQuiz('english')">
-                <div class="quiz-icon">🦄📚</div>
+                <div class="quiz-icon">🦄💖📚🌈</div>
                 <div class="quiz-title">Rainbow Reading Adventure</div>
                 <div class="quiz-description">
-                    Read magical stories and learn sparkly words with unicorn friends! 🌈✨
+                    Read magical stories and learn sparkly words with unicorn friends! 🌈💖✨
                 </div>
                 <ul class="quiz-features">
                     <li>📖 Reading comprehension stories</li>
@@ -374,7 +393,25 @@
                     <li>🦄 Magical word jokes to enjoy!</li>
                 </ul>
                 <button class="start-button english" onclick="event.stopPropagation(); openQuiz('english')">
-                    Start Reading! 🦄📖
+                    Start Reading! 🦄💖📖
+                </button>
+            </div>
+            
+            <!-- History Quiz Card -->
+            <div class="quiz-card history" onclick="openQuiz('history')">
+                <div class="quiz-icon">🦄💖🏛️🌈</div>
+                <div class="quiz-title">Magical History Quest</div>
+                <div class="quiz-description">
+                    Explore ancient kingdoms of China and India with magical discoveries! 🦄💖🌈
+                </div>
+                <ul class="quiz-features">
+                    <li>🏛️ Ancient China and India adventures</li>
+                    <li>🐉 Dragons, emperors, and wise rulers</li>
+                    <li>🧮 Amazing inventions and discoveries</li>
+                    <li>👑 Magical history jokes to enjoy!</li>
+                </ul>
+                <button class="start-button history" onclick="event.stopPropagation(); openQuiz('history')">
+                    Start History Quest! 🦄💖🏛️
                 </button>
             </div>
         </div>
@@ -445,8 +482,62 @@
         `;
         document.head.appendChild(unicornStyle);
         
-        // Create floating unicorns periodically
+        // Add floating hearts and rainbows
+        function createFloatingHeart() {
+            const hearts = ['💖', '💕', '💜', '💙', '💚'];
+            const heart = document.createElement('div');
+            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.top = '-50px';
+            heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+            heart.style.pointerEvents = 'none';
+            heart.style.animation = 'heartFloat 6s ease-out forwards';
+            heart.style.zIndex = '-1';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 6000);
+        }
+        
+        function createFloatingRainbow() {
+            const rainbow = document.createElement('div');
+            rainbow.innerHTML = '🌈';
+            rainbow.style.position = 'fixed';
+            rainbow.style.right = '-50px';
+            rainbow.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+            rainbow.style.fontSize = Math.random() * 25 + 20 + 'px';
+            rainbow.style.pointerEvents = 'none';
+            rainbow.style.animation = 'rainbowSlide 8s linear forwards';
+            rainbow.style.zIndex = '-1';
+            document.body.appendChild(rainbow);
+            
+            setTimeout(() => rainbow.remove(), 8000);
+        }
+        
+        // Add heart and rainbow animations
+        const heartRainbowStyle = document.createElement('style');
+        heartRainbowStyle.textContent += `
+            @keyframes heartFloat {
+                0% { top: -50px; transform: rotate(0deg) scale(1); opacity: 1; }
+                25% { transform: rotate(10deg) scale(1.1); }
+                50% { transform: rotate(-5deg) scale(1.2); }
+                75% { transform: rotate(5deg) scale(1.1); }
+                100% { top: calc(100vh + 50px); transform: rotate(0deg) scale(1); opacity: 0; }
+            }
+            @keyframes rainbowSlide {
+                0% { right: -50px; transform: scale(1) rotate(0deg); }
+                25% { transform: scale(1.1) rotate(5deg); }
+                50% { transform: scale(1.2) rotate(-5deg); }
+                75% { transform: scale(1.1) rotate(5deg); }
+                100% { right: calc(100vw + 50px); transform: scale(1) rotate(0deg); }
+            }
+        `;
+        document.head.appendChild(heartRainbowStyle);
+        
+        // Create floating unicorns, hearts, and rainbows periodically
         setInterval(createFloatingUnicorn, 5000);
+        setInterval(createFloatingHeart, 3000);
+        setInterval(createFloatingRainbow, 4000);
         
         // Add click sound effect simulation
         document.querySelectorAll('.quiz-card, .start-button').forEach(element => {
