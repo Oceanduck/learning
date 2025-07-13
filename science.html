@@ -293,6 +293,7 @@
             <div class="joke-section" id="jokeSection"></div>
             <div class="emoji">🏆</div>
             <button class="restart-btn" onclick="restartQuiz()">Play Again!</button>
+            <button class="restart-btn" onclick="goToHome()" style="background: linear-gradient(45deg, #2dd4bf, #0891b2); margin-left: 10px;">Back to Magic Kingdom 🦄🏠</button>
         </div>
     </div>
 
@@ -446,10 +447,34 @@
         let questionResults = [];
         let selectedAnswer = -1;
 
+        let usedQuestions = [];
+
         function generateRandomQuestions() {
-            // Shuffle the science questions and pick 10
-            const shuffled = [...scienceQuestions].sort(() => 0.5 - Math.random());
-            return shuffled.slice(0, 10);
+            // Reset used questions if we've used all available questions
+            if (usedQuestions.length >= scienceQuestions.length - 10) {
+                usedQuestions = [];
+            }
+            
+            // Get available questions (not recently used)
+            const availableQuestions = scienceQuestions.filter((_, index) => !usedQuestions.includes(index));
+            
+            // Shuffle available questions using Fisher-Yates algorithm for better randomization
+            const shuffled = [...availableQuestions];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            
+            // Take 10 questions and remember which ones we used
+            const selectedQuestions = shuffled.slice(0, 10);
+            selectedQuestions.forEach(question => {
+                const originalIndex = scienceQuestions.indexOf(question);
+                if (originalIndex !== -1) {
+                    usedQuestions.push(originalIndex);
+                }
+            });
+            
+            return selectedQuestions;
         }
 
         function getRandomJoke() {
@@ -653,6 +678,40 @@
             // Reset progress bar
             document.getElementById('progressFill').style.width = '0%';
         }
+
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+
+        // Add magical floating elements
+        function createFloatingElement() {
+            const elements = ['🦄', '🌈', '✨', '🔬', '🧪', '🌟', '🎀', '💖', '🐨', '🌱'];
+            const element = document.createElement('div');
+            element.innerHTML = elements[Math.floor(Math.random() * elements.length)];
+            element.style.position = 'fixed';
+            element.style.left = Math.random() * window.innerWidth + 'px';
+            element.style.top = window.innerHeight + 'px';
+            element.style.fontSize = Math.random() * 25 + 15 + 'px';
+            element.style.pointerEvents = 'none';
+            element.style.animation = 'floatUp 6s linear forwards';
+            element.style.zIndex = '-1';
+            document.body.appendChild(element);
+            
+            setTimeout(() => element.remove(), 6000);
+        }
+        
+        // Add floating animation
+        const floatStyle = document.createElement('style');
+        floatStyle.textContent = `
+            @keyframes floatUp {
+                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(floatStyle);
+        
+        // Create floating elements periodically
+        setInterval(createFloatingElement, 2000);
 
         // Initialize the quiz - show welcome screen first
         questions = generateRandomQuestions();

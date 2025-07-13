@@ -7,24 +7,40 @@
     <style>
         body {
             font-family: 'Comic Sans MS', cursive, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #38b2ac 0%, #4fd1c7 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+            background-size: 400% 400%;
+            animation: rainbowFlow 8s ease-in-out infinite;
             margin: 0;
             padding: 20px;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow-x: hidden;
+        }
+        
+        @keyframes rainbowFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         
         .cover-container {
-            background: white;
+            background: linear-gradient(145deg, #ffffff 0%, #f0fdfa 50%, #ccfbf1 100%);
             border-radius: 30px;
             padding: 40px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 50px rgba(56, 178, 172, 0.3), 0 0 0 3px #38b2ac;
             max-width: 900px;
             width: 100%;
             text-align: center;
-            animation: fadeIn 1s ease-in;
+            animation: fadeIn 1s ease-in, floatMagic 3s ease-in-out infinite;
+            border: 4px solid transparent;
+            background-clip: padding-box;
+        }
+        
+        @keyframes floatMagic {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
         
         @keyframes fadeIn {
@@ -33,28 +49,41 @@
         }
         
         h1 {
-            color: #2d3748;
+            background: linear-gradient(45deg, #38b2ac, #4fd1c7, #f093fb, #f5576c);
+            background-size: 400% 400%;
+            animation: rainbowText 3s ease-in-out infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-size: 3em;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 4px rgba(56, 178, 172, 0.3);
+            font-weight: bold;
+        }
+        
+        @keyframes rainbowText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         
         .subtitle {
-            color: #4a5568;
+            color: #234e52;
             font-size: 1.5em;
             margin-bottom: 30px;
+            font-weight: bold;
         }
         
         .emoji-header {
             font-size: 4em;
             margin: 20px 0;
-            animation: bounce 2s infinite;
+            animation: unicornDance 3s ease-in-out infinite;
         }
         
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-20px); }
-            60% { transform: translateY(-10px); }
+        @keyframes unicornDance {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            25% { transform: translateY(-15px) rotate(-5deg) scale(1.1); }
+            50% { transform: translateY(-25px) rotate(0deg) scale(1.2); }
+            75% { transform: translateY(-15px) rotate(5deg) scale(1.1); }
         }
         
         .quiz-grid {
@@ -65,42 +94,62 @@
         }
         
         .quiz-card {
-            background: linear-gradient(145deg, #f7fafc, #edf2f7);
+            background: linear-gradient(145deg, #ffffff, #f0fdfa, #ccfbf1);
             border-radius: 20px;
             padding: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 3px solid transparent;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 3px solid #38b2ac;
+            box-shadow: 0 8px 25px rgba(56, 178, 172, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quiz-card::before {
+            content: '🌈';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+            animation: sparkleRotate 2s linear infinite;
+        }
+        
+        @keyframes sparkleRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
         
         .quiz-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            transform: translateY(-15px) scale(1.05) rotate(1deg);
+            box-shadow: 0 20px 50px rgba(56, 178, 172, 0.4), 0 0 30px rgba(240, 147, 251, 0.3);
+            border-color: #4fd1c7;
         }
         
         .quiz-card.maths {
-            border-color: #4299e1;
+            border-color: #38b2ac;
+            background: linear-gradient(145deg, #ffffff, #f0fdfa, #ccfbf1, #a7f3d0);
         }
         
         .quiz-card.maths:hover {
-            background: linear-gradient(145deg, #e6f3ff, #bee3f8);
+            background: linear-gradient(145deg, #f0fdfa, #ccfbf1, #a7f3d0, #6ee7b7);
         }
         
         .quiz-card.science {
-            border-color: #48bb78;
+            border-color: #4fd1c7;
+            background: linear-gradient(145deg, #ffffff, #f0fdfa, #ccfbf1, #99f6e4);
         }
         
         .quiz-card.science:hover {
-            background: linear-gradient(145deg, #f0fff4, #c6f6d5);
+            background: linear-gradient(145deg, #f0fdfa, #ccfbf1, #99f6e4, #5eead4);
         }
         
         .quiz-card.english {
-            border-color: #9f7aea;
+            border-color: #2dd4bf;
+            background: linear-gradient(145deg, #ffffff, #f0fdfa, #ccfbf1, #7dd3fc);
         }
         
         .quiz-card.english:hover {
-            background: linear-gradient(145deg, #faf5ff, #e9d8fd);
+            background: linear-gradient(145deg, #f0fdfa, #ccfbf1, #7dd3fc, #38bdf8);
         }
         
         .quiz-icon {
@@ -135,7 +184,7 @@
         }
         
         .start-button {
-            background: #4299e1;
+            background: linear-gradient(45deg, #38b2ac, #4fd1c7, #2dd4bf);
             color: white;
             border: none;
             padding: 15px 30px;
@@ -145,33 +194,48 @@
             font-family: inherit;
             font-weight: bold;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
+            box-shadow: 0 6px 20px rgba(56, 178, 172, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .start-button::before {
+            content: '🦄';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
         }
         
         .start-button:hover {
-            background: #3182ce;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4);
+            background: linear-gradient(45deg, #2dd4bf, #14b8a6, #0f766e);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(56, 178, 172, 0.6);
+        }
+        
+        .start-button:hover::before {
+            left: 10px;
         }
         
         .start-button.science {
-            background: #48bb78;
-            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+            background: linear-gradient(45deg, #4fd1c7, #2dd4bf, #14b8a6);
+            box-shadow: 0 6px 20px rgba(77, 209, 199, 0.4);
         }
         
         .start-button.science:hover {
-            background: #38a169;
-            box-shadow: 0 6px 20px rgba(72, 187, 120, 0.4);
+            background: linear-gradient(45deg, #2dd4bf, #14b8a6, #0d9488);
+            box-shadow: 0 8px 25px rgba(77, 209, 199, 0.6);
         }
         
         .start-button.english {
-            background: #9f7aea;
-            box-shadow: 0 4px 15px rgba(159, 122, 234, 0.3);
+            background: linear-gradient(45deg, #2dd4bf, #0891b2, #0369a1);
+            box-shadow: 0 6px 20px rgba(45, 212, 191, 0.4);
         }
         
         .start-button.english:hover {
-            background: #805ad5;
-            box-shadow: 0 6px 20px rgba(159, 122, 234, 0.4);
+            background: linear-gradient(45deg, #0891b2, #0369a1, #075985);
+            box-shadow: 0 8px 25px rgba(45, 212, 191, 0.6);
         }
         
         .footer {
@@ -183,17 +247,40 @@
         }
         
         .encouragement {
-            background: linear-gradient(135deg, #fff5f5, #fed7d7);
-            border: 2px solid #f687b3;
+            background: linear-gradient(135deg, #f0fdfa, #ccfbf1, #a7f3d0);
+            border: 3px solid #38b2ac;
             border-radius: 15px;
             padding: 20px;
             margin: 30px 0;
             font-size: 1.3em;
-            color: #2d3748;
+            color: #234e52;
+            position: relative;
+            overflow: hidden;
+            animation: gentleGlow 3s ease-in-out infinite;
+        }
+        
+        .encouragement::before {
+            content: '🦄✨🌈✨🦄';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            animation: floatSparkles 4s ease-in-out infinite;
+        }
+        
+        @keyframes gentleGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(56, 178, 172, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(77, 209, 199, 0.5); }
+        }
+        
+        @keyframes floatSparkles {
+            0%, 100% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-5px); }
         }
         
         .year-level {
-            background: #4299e1;
+            background: linear-gradient(45deg, #38b2ac, #4fd1c7, #2dd4bf);
             color: white;
             padding: 8px 16px;
             border-radius: 20px;
@@ -201,6 +288,13 @@
             font-weight: bold;
             display: inline-block;
             margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(56, 178, 172, 0.3);
+            animation: shimmer 2s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { box-shadow: 0 4px 15px rgba(56, 178, 172, 0.3); }
+            50% { box-shadow: 0 6px 20px rgba(77, 209, 199, 0.5); }
         }
         
         @media (max-width: 768px) {
@@ -220,67 +314,67 @@
 </head>
 <body>
     <div class="cover-container">
-        <div class="emoji-header">🎓</div>
-        <h1>Practice Quizzes</h1>
-        <div class="year-level">Year 2</div>
-        <p class="subtitle">Choose your adventure and test your knowledge!</p>
+        <div class="emoji-header">🦄</div>
+        <h1>Magical Learning Adventure</h1>
+        <div class="year-level">🌟 Year 2 Superstar 🌟</div>
+        <p class="subtitle">Choose your magical quest and discover amazing things! 🌈✨</p>
         
         <div class="encouragement">
-            🌟 Ready to show what you know? Pick a subject below and let's have some fun learning! 🌟
+            ✨ Welcome to your magical learning kingdom! Pick a sparkly subject and let's go on an amazing adventure together! ✨
         </div>
         
         <div class="quiz-grid">
             <!-- Maths Quiz Card -->
             <div class="quiz-card maths" onclick="openQuiz('maths')">
-                <div class="quiz-icon">🧮</div>
-                <div class="quiz-title">Maths Game</div>
+                <div class="quiz-icon">🦄🧮</div>
+                <div class="quiz-title">Magical Maths Adventure</div>
                 <div class="quiz-description">
-                    Solve fun word problems with addition, subtraction, multiplication, and division!
+                    Join the unicorns and solve magical word problems with sparkly numbers! 🌈✨
                 </div>
                 <ul class="quiz-features">
                     <li>📊 10 different questions each time</li>
                     <li>🎯 Two attempts per question</li>
                     <li>📝 See all answers at the end</li>
-                    <li>🎉 Fun maths jokes included!</li>
+                    <li>🦄 Magical unicorn jokes included!</li>
                 </ul>
                 <button class="start-button" onclick="event.stopPropagation(); openQuiz('maths')">
-                    Start Maths! 🚀
+                    Start Magic! 🦄✨
                 </button>
             </div>
             
             <!-- Science Quiz Card -->
             <div class="quiz-card science" onclick="openQuiz('science')">
-                <div class="quiz-icon">🔬</div>
-                <div class="quiz-title">Science Quiz</div>
+                <div class="quiz-icon">🦄🔬</div>
+                <div class="quiz-title">Enchanted Science Quest</div>
                 <div class="quiz-description">
-                    Explore the world of animals, plants, weather, and amazing science facts!
+                    Discover magical creatures, rainbow plants, and amazing science wonders! 🌈🦄
                 </div>
                 <ul class="quiz-features">
                     <li>🐨 Australian animals and nature</li>
                     <li>🌱 Plants, weather, and life cycles</li>
                     <li>🧪 Fun scientific discoveries</li>
-                    <li>💡 Learn something new every time!</li>
+                    <li>🦄 Learn magical facts every time!</li>
                 </ul>
                 <button class="start-button science" onclick="event.stopPropagation(); openQuiz('science')">
-                    Explore Science! 🌟
+                    Explore Magic! 🦄🌈
                 </button>
             </div>
             
             <!-- English Quiz Card -->
             <div class="quiz-card english" onclick="openQuiz('english')">
-                <div class="quiz-icon">📚</div>
-                <div class="quiz-title">English Quiz</div>
+                <div class="quiz-icon">🦄📚</div>
+                <div class="quiz-title">Rainbow Reading Adventure</div>
                 <div class="quiz-description">
-                    Test your reading, vocabulary, grammar, and word skills with exciting stories!
+                    Read magical stories and learn sparkly words with unicorn friends! 🌈✨
                 </div>
                 <ul class="quiz-features">
                     <li>📖 Reading comprehension stories</li>
                     <li>🔤 Rhymes, synonyms, and antonyms</li>
                     <li>✏️ Grammar and sentence skills</li>
-                    <li>🎭 Funny word jokes to enjoy!</li>
+                    <li>🦄 Magical word jokes to enjoy!</li>
                 </ul>
                 <button class="start-button english" onclick="event.stopPropagation(); openQuiz('english')">
-                    Start Reading! 📖
+                    Start Reading! 🦄📖
                 </button>
             </div>
         </div>
@@ -322,7 +416,37 @@
         document.head.appendChild(style);
         
         // Create sparkles periodically
-        setInterval(createSparkle, 1000);
+        setInterval(createSparkle, 800);
+        
+        // Add floating unicorns
+        function createFloatingUnicorn() {
+            const unicorn = document.createElement('div');
+            unicorn.innerHTML = '🦄';
+            unicorn.style.position = 'fixed';
+            unicorn.style.left = '-50px';
+            unicorn.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+            unicorn.style.fontSize = Math.random() * 30 + 20 + 'px';
+            unicorn.style.pointerEvents = 'none';
+            unicorn.style.animation = 'floatAcross 8s linear forwards';
+            unicorn.style.zIndex = '-1';
+            document.body.appendChild(unicorn);
+            
+            setTimeout(() => unicorn.remove(), 8000);
+        }
+        
+        // Add floating unicorn animation
+        const unicornStyle = document.createElement('style');
+        unicornStyle.textContent += `
+            @keyframes floatAcross {
+                0% { left: -50px; transform: rotate(0deg); }
+                50% { transform: rotate(10deg); }
+                100% { left: calc(100vw + 50px); transform: rotate(0deg); }
+            }
+        `;
+        document.head.appendChild(unicornStyle);
+        
+        // Create floating unicorns periodically
+        setInterval(createFloatingUnicorn, 5000);
         
         // Add click sound effect simulation
         document.querySelectorAll('.quiz-card, .start-button').forEach(element => {

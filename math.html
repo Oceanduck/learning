@@ -262,6 +262,7 @@
             <div class="joke-section" id="jokeSection"></div>
             <div class="emoji">🏆</div>
             <button class="restart-btn" onclick="restartQuiz()">Play Again!</button>
+            <button class="restart-btn" onclick="goToHome()" style="background: #4299e1; margin-left: 10px;">Back to Home 🏠</button>
         </div>
     </div>
 
@@ -430,13 +431,33 @@
             loadQuestion();
         }
 
+        let usedQuestionSeeds = [];
+
         function generateRandomQuestions() {
             const questionTypes = ['addition', 'subtraction', 'multiplication', 'division'];
             const newQuestions = [];
             
+            // Reset used seeds if we've generated too many questions
+            if (usedQuestionSeeds.length >= 1000) {
+                usedQuestionSeeds = [];
+            }
+            
             for (let i = 0; i < 10; i++) {
-                const randomType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
-                newQuestions.push(questionGenerators[randomType]());
+                let question, seed;
+                let attempts = 0;
+                
+                // Try to generate a unique question
+                do {
+                    const randomType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+                    question = questionGenerators[randomType]();
+                    // Create a seed based on question content to check for duplicates
+                    seed = question.question + "_" + question.answer;
+                    attempts++;
+                } while (usedQuestionSeeds.includes(seed) && attempts < 50);
+                
+                // Add the seed to used questions
+                usedQuestionSeeds.push(seed);
+                newQuestions.push(question);
             }
             
             return newQuestions;
@@ -586,6 +607,10 @@
             
             // Reset progress bar
             document.getElementById('progressFill').style.width = '0%';
+        }
+
+        function goToHome() {
+            window.location.href = 'index.html';
         }
 
         // Event listeners

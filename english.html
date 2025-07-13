@@ -7,7 +7,9 @@
     <style>
         body {
             font-family: 'Comic Sans MS', cursive, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #38b2ac 0%, #4fd1c7 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+            background-size: 400% 400%;
+            animation: rainbowFlow 8s ease-in-out infinite;
             margin: 0;
             padding: 20px;
             min-height: 100vh;
@@ -16,20 +18,43 @@
             align-items: center;
         }
         
+        @keyframes rainbowFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
         .quiz-container {
-            background: white;
+            background: linear-gradient(145deg, #ffffff 0%, #f0fdfa 50%, #ccfbf1 100%);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 40px rgba(56, 178, 172, 0.3), 0 0 0 3px #38b2ac;
             max-width: 800px;
             width: 100%;
             text-align: center;
+            animation: floatMagic 3s ease-in-out infinite;
+        }
+        
+        @keyframes floatMagic {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
         
         h1 {
-            color: #4a5568;
+            background: linear-gradient(45deg, #38b2ac, #4fd1c7, #f093fb, #f5576c);
+            background-size: 400% 400%;
+            animation: rainbowText 3s ease-in-out infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-size: 2.5em;
             margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        @keyframes rainbowText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         
         .emoji {
@@ -39,13 +64,24 @@
         
         .question {
             font-size: 1.3em;
-            color: #2d3748;
+            color: #234e52;
             margin: 20px 0;
             padding: 20px;
-            background: #f7fafc;
+            background: linear-gradient(145deg, #f0fdfa, #ccfbf1);
             border-radius: 15px;
-            border-left: 5px solid #9f7aea;
+            border-left: 5px solid #38b2ac;
+            border-top: 2px solid #4fd1c7;
             text-align: left;
+            box-shadow: 0 4px 15px rgba(56, 178, 172, 0.2);
+            position: relative;
+        }
+        
+        .question::before {
+            content: '🌈';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.2em;
         }
         
         .story-text {
@@ -67,21 +103,46 @@
             font-size: 1.2em;
             padding: 15px;
             margin: 10px 0;
-            border: 3px solid #e2e8f0;
+            border: 3px solid #ccfbf1;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
-            background: white;
+            background: linear-gradient(145deg, #ffffff, #f0fdfa);
+            position: relative;
+        }
+        
+        .option::before {
+            content: '✨';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: all 0.3s ease;
         }
         
         .option:hover {
-            border-color: #9f7aea;
-            background: #f7fafc;
+            border-color: #38b2ac;
+            background: linear-gradient(145deg, #f0fdfa, #ccfbf1);
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(56, 178, 172, 0.3);
+        }
+        
+        .option:hover::before {
+            opacity: 1;
+            left: 15px;
         }
         
         .option.selected {
-            border-color: #9f7aea;
-            background: #e9d8fd;
+            border-color: #38b2ac;
+            background: linear-gradient(145deg, #ccfbf1, #a7f3d0);
+            box-shadow: 0 6px 20px rgba(56, 178, 172, 0.4);
+        }
+        
+        .option.selected::before {
+            content: '🦄';
+            opacity: 1;
+            left: 15px;
         }
         
         .option.correct {
@@ -106,13 +167,15 @@
         }
         
         .check-btn {
-            background: #48bb78;
+            background: linear-gradient(45deg, #38b2ac, #4fd1c7);
             color: white;
+            border: 2px solid #2dd4bf;
         }
         
         .check-btn:hover {
-            background: #38a169;
-            transform: translateY(-2px);
+            background: linear-gradient(45deg, #2dd4bf, #14b8a6);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(56, 178, 172, 0.4);
         }
         
         .check-btn:disabled {
@@ -122,13 +185,15 @@
         }
         
         .next-btn {
-            background: #9f7aea;
+            background: linear-gradient(45deg, #4fd1c7, #2dd4bf);
             color: white;
+            border: 2px solid #38b2ac;
         }
         
         .next-btn:hover {
-            background: #805ad5;
-            transform: translateY(-2px);
+            background: linear-gradient(45deg, #2dd4bf, #14b8a6);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(77, 209, 199, 0.4);
         }
         
         .result {
@@ -140,9 +205,15 @@
         }
         
         .correct {
-            background: #c6f6d5;
+            background: linear-gradient(145deg, #ccfbf1, #a7f3d0);
             color: #22543d;
-            border: 2px solid #48bb78;
+            border: 2px solid #38b2ac;
+            animation: successSparkle 0.5s ease-in-out;
+        }
+        
+        @keyframes successSparkle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         .incorrect {
@@ -174,8 +245,14 @@
         
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #9f7aea, #805ad5);
+            background: linear-gradient(90deg, #38b2ac, #4fd1c7, #2dd4bf);
             transition: width 0.5s ease;
+            animation: progressShimmer 2s ease-in-out infinite;
+        }
+        
+        @keyframes progressShimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
         
         .final-score {
@@ -185,15 +262,32 @@
         }
         
         .restart-btn {
-            background: #4299e1;
+            background: linear-gradient(45deg, #38b2ac, #4fd1c7);
             color: white;
             font-size: 1.3em;
             padding: 15px 25px;
+            border: 2px solid #2dd4bf;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .restart-btn::before {
+            content: '🦄';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
         }
         
         .restart-btn:hover {
-            background: #3182ce;
-            transform: translateY(-2px);
+            background: linear-gradient(45deg, #2dd4bf, #14b8a6);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(56, 178, 172, 0.4);
+        }
+        
+        .restart-btn:hover::before {
+            left: 10px;
         }
 
         .joke-section {
@@ -234,20 +328,36 @@
         }
         
         .start-btn {
-            background: #9f7aea;
+            background: linear-gradient(45deg, #38b2ac, #4fd1c7, #2dd4bf);
             color: white;
             font-size: 1.5em;
             padding: 20px 40px;
-            border: none;
+            border: 3px solid #2dd4bf;
             border-radius: 15px;
             cursor: pointer;
             font-family: inherit;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .start-btn::before {
+            content: '🦄✨';
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
         }
         
         .start-btn:hover {
-            background: #805ad5;
-            transform: translateY(-2px);
+            background: linear-gradient(45deg, #2dd4bf, #14b8a6, #0d9488);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(56, 178, 172, 0.5);
+        }
+        
+        .start-btn:hover::before {
+            left: 15px;
         }
 
         .game-content {
@@ -263,14 +373,14 @@
 </head>
 <body>
     <div class="quiz-container">
-        <h1>📚 English Quiz 📚</h1>
-        <span class="emoji">🌟</span>
+        <h1>🦄📚 Rainbow Reading Adventure 📚🌈</h1>
+        <span class="emoji">🦄✨</span>
         
         <div class="welcome-screen" id="welcomeScreen">
-            <div class="emoji">📖</div>
-            <h2 style="color: #4a5568; font-size: 2em; margin: 20px 0;">Do you want to play??</h2>
-            <div class="emoji">🤔</div>
-            <button class="start-btn" onclick="startGame()">Yes, Let's Read! 🚀</button>
+            <div class="emoji">🦄📖🌈</div>
+            <h2 style="color: #234e52; font-size: 2em; margin: 20px 0;">Ready for a magical reading adventure??</h2>
+            <div class="emoji">✨🦄✨</div>
+            <button class="start-btn" onclick="startGame()">Yes, Let's Read Magic! 🦄✨</button>
         </div>
         
         <div class="game-content" id="gameContent">
@@ -287,14 +397,14 @@
             
             <div class="answer-options" id="answerOptions"></div>
             
-            <button class="check-btn" id="checkBtn" onclick="checkAnswer()" disabled>Check Answer! ✓</button>
-            <button class="next-btn" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Question →</button>
+            <button class="check-btn" id="checkBtn" onclick="checkAnswer()" disabled>Check Magic Answer! 🦄✨</button>
+            <button class="next-btn" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Magic Question 🌈→</button>
             
             <div class="result" id="result" style="display: none;"></div>
         </div>
         
         <div id="finalScore" style="display: none;">
-            <div class="final-score">Quiz Complete! 🎉</div>
+            <div class="final-score">Magical Adventure Complete! 🦄🌈🎉</div>
             <div class="final-score">Your Score: <span id="score"></span>/10</div>
             <div class="answers-section" id="answersSection">
                 <h3>📝 All Quiz Answers:</h3>
@@ -302,7 +412,8 @@
             </div>
             <div class="joke-section" id="jokeSection"></div>
             <div class="emoji">🏆</div>
-            <button class="restart-btn" onclick="restartQuiz()">Play Again!</button>
+            <button class="restart-btn" onclick="restartQuiz()">Play Again! 🦄</button>
+            <button class="restart-btn" onclick="goToHome()" style="background: linear-gradient(45deg, #2dd4bf, #0891b2); margin-left: 10px;">Back to Magic Kingdom 🦄🏠</button>
         </div>
     </div>
 
@@ -456,10 +567,34 @@
         let questionResults = [];
         let selectedAnswer = -1;
 
+        let usedQuestions = [];
+
         function generateRandomQuestions() {
-            // Shuffle the English questions and pick 10
-            const shuffled = [...englishQuestions].sort(() => 0.5 - Math.random());
-            return shuffled.slice(0, 10);
+            // Reset used questions if we've used all available questions
+            if (usedQuestions.length >= englishQuestions.length - 10) {
+                usedQuestions = [];
+            }
+            
+            // Get available questions (not recently used)
+            const availableQuestions = englishQuestions.filter((_, index) => !usedQuestions.includes(index));
+            
+            // Shuffle available questions using Fisher-Yates algorithm for better randomization
+            const shuffled = [...availableQuestions];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            
+            // Take 10 questions and remember which ones we used
+            const selectedQuestions = shuffled.slice(0, 10);
+            selectedQuestions.forEach(question => {
+                const originalIndex = englishQuestions.indexOf(question);
+                if (originalIndex !== -1) {
+                    usedQuestions.push(originalIndex);
+                }
+            });
+            
+            return selectedQuestions;
         }
 
         function getRandomJoke() {
@@ -666,6 +801,40 @@
             // Reset progress bar
             document.getElementById('progressFill').style.width = '0%';
         }
+
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+
+        // Add magical floating elements
+        function createFloatingElement() {
+            const elements = ['🦄', '🌈', '✨', '🎀', '💖', '🌟'];
+            const element = document.createElement('div');
+            element.innerHTML = elements[Math.floor(Math.random() * elements.length)];
+            element.style.position = 'fixed';
+            element.style.left = Math.random() * window.innerWidth + 'px';
+            element.style.top = window.innerHeight + 'px';
+            element.style.fontSize = Math.random() * 25 + 15 + 'px';
+            element.style.pointerEvents = 'none';
+            element.style.animation = 'floatUp 6s linear forwards';
+            element.style.zIndex = '-1';
+            document.body.appendChild(element);
+            
+            setTimeout(() => element.remove(), 6000);
+        }
+        
+        // Add floating animation
+        const floatStyle = document.createElement('style');
+        floatStyle.textContent = `
+            @keyframes floatUp {
+                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(floatStyle);
+        
+        // Create floating elements periodically
+        setInterval(createFloatingElement, 2000);
 
         // Initialize the quiz - show welcome screen first
         questions = generateRandomQuestions();

@@ -262,6 +262,7 @@
             <div class="joke-section" id="jokeSection"></div>
             <div class="emoji">🏆</div>
             <button class="restart-btn" onclick="restartQuiz()">Play Again!</button>
+            <button class="restart-btn" onclick="goToHome()" style="background: linear-gradient(45deg, #2dd4bf, #0891b2); margin-left: 10px;">Back to Magic Kingdom 🦄🏠</button>
         </div>
     </div>
 
@@ -430,13 +431,33 @@
             loadQuestion();
         }
 
+        let usedQuestionSeeds = [];
+
         function generateRandomQuestions() {
             const questionTypes = ['addition', 'subtraction', 'multiplication', 'division'];
             const newQuestions = [];
             
+            // Reset used seeds if we've generated too many questions
+            if (usedQuestionSeeds.length >= 1000) {
+                usedQuestionSeeds = [];
+            }
+            
             for (let i = 0; i < 10; i++) {
-                const randomType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
-                newQuestions.push(questionGenerators[randomType]());
+                let question, seed;
+                let attempts = 0;
+                
+                // Try to generate a unique question
+                do {
+                    const randomType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+                    question = questionGenerators[randomType]();
+                    // Create a seed based on question content to check for duplicates
+                    seed = question.question + "_" + question.answer;
+                    attempts++;
+                } while (usedQuestionSeeds.includes(seed) && attempts < 50);
+                
+                // Add the seed to used questions
+                usedQuestionSeeds.push(seed);
+                newQuestions.push(question);
             }
             
             return newQuestions;
@@ -588,6 +609,10 @@
             document.getElementById('progressFill').style.width = '0%';
         }
 
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+
         // Event listeners
         document.getElementById('answerInput').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
@@ -604,6 +629,36 @@
                 document.getElementById('result').style.display = 'none';
             }
         });
+
+        // Add magical floating elements
+        function createFloatingElement() {
+            const elements = ['🦄', '🌈', '✨', '🧮', '💖', '🌟', '🎀'];
+            const element = document.createElement('div');
+            element.innerHTML = elements[Math.floor(Math.random() * elements.length)];
+            element.style.position = 'fixed';
+            element.style.left = Math.random() * window.innerWidth + 'px';
+            element.style.top = window.innerHeight + 'px';
+            element.style.fontSize = Math.random() * 25 + 15 + 'px';
+            element.style.pointerEvents = 'none';
+            element.style.animation = 'floatUp 6s linear forwards';
+            element.style.zIndex = '-1';
+            document.body.appendChild(element);
+            
+            setTimeout(() => element.remove(), 6000);
+        }
+        
+        // Add floating animation
+        const floatStyle = document.createElement('style');
+        floatStyle.textContent = `
+            @keyframes floatUp {
+                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(floatStyle);
+        
+        // Create floating elements periodically
+        setInterval(createFloatingElement, 2000);
 
         // Initialize the quiz - show welcome screen first
         questions = generateRandomQuestions();
