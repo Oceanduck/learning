@@ -161,6 +161,15 @@
             background: linear-gradient(145deg, #f0fdfa, #ccfbf1, #fbbf24, #f59e0b);
         }
         
+        .quiz-card.typing {
+            border-color: #a855f7;
+            background: linear-gradient(145deg, #ffffff, #f0fdfa, #ccfbf1, #ddd6fe);
+        }
+        
+        .quiz-card.typing:hover {
+            background: linear-gradient(145deg, #f0fdfa, #ccfbf1, #ddd6fe, #c4b5fd);
+        }
+        
         .quiz-icon {
             font-size: 4em;
             margin-bottom: 20px;
@@ -255,6 +264,16 @@
         .start-button.history:hover {
             background: linear-gradient(45deg, #0d9488, #f59e0b, #d97706);
             box-shadow: 0 8px 25px rgba(251, 191, 36, 0.6);
+        }
+        
+        .start-button.typing {
+            background: linear-gradient(45deg, #a855f7, #c084fc, #e879f9);
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+        }
+        
+        .start-button.typing:hover {
+            background: linear-gradient(45deg, #9333ea, #a855f7, #d946ef);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.6);
         }
         
         .footer {
@@ -412,6 +431,24 @@
                 </ul>
                 <button class="start-button history" onclick="event.stopPropagation(); openQuiz('history')">
                     Start History Quest! 🦄💖🏛️
+                </button>
+            </div>
+            
+            <!-- Typing Practice Card -->
+            <div class="quiz-card typing" onclick="openQuiz('typing')">
+                <div class="quiz-icon">⌨️🦄💖✨</div>
+                <div class="quiz-title">Magical Typing Adventure</div>
+                <div class="quiz-description">
+                    Practice typing with magical words and become a typing superstar! ⌨️💖🌈
+                </div>
+                <ul class="quiz-features">
+                    <li>⌨️ Fun sentences with magical themes</li>
+                    <li>🚀 Track your typing speed and accuracy</li>
+                    <li>🌟 Beautiful rainbow progress tracking</li>
+                    <li>🦄 Sparkly typing adventures for kids!</li>
+                </ul>
+                <button class="start-button typing" onclick="event.stopPropagation(); openQuiz('typing')">
+                    Start Typing! ⌨️💖✨
                 </button>
             </div>
         </div>
